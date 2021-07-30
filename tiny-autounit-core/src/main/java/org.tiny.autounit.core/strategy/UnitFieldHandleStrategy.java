@@ -14,5 +14,6 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
     @Override
     public void build(UnitClassMethod unitClassMethod) {
       System.out.println(unitClassMethod.getCtClass().getName());
+      unitClassMethod.getClass().getDeclaredFields();
     }
 }
