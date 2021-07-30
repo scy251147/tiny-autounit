@@ -15,37 +15,37 @@ public class UnitBuildFactory {
      * @return
      */
     public static String makeContent(UnitClassMethod unitClassMethod) {
-        makeMethodRequest();
-        makeInjectField();
-        makeMethodBody();
+        makeMethodRequest(unitClassMethod);
+        makeInjectField(unitClassMethod);
+        makeMethodBody(unitClassMethod);
         return null;
     }
 
     /**
      * 构建方法入参
      */
-    private static void makeMethodRequest() {
+    private static void makeMethodRequest(UnitClassMethod unitClassMethod) {
         IUnitBuildStrategy unitBuildStrategy = new UnitRequestHandleStrategy();
         UnitBuildContext context = new UnitBuildContext(unitBuildStrategy);
-        context.build();
+        context.build(unitClassMethod);
     }
 
     /**
      * 构建注入对象
      */
-    private static void makeInjectField() {
+    private static void makeInjectField(UnitClassMethod unitClassMethod) {
         IUnitBuildStrategy unitBuildStrategy = new UnitFieldHandleStrategy();
         UnitBuildContext context = new UnitBuildContext(unitBuildStrategy);
-        context.build();
+        context.build(unitClassMethod);
     }
 
     /**
      * 构建方法体内容
      */
-    private static void makeMethodBody() {
+    private static void makeMethodBody(UnitClassMethod unitClassMethod) {
         IUnitBuildStrategy unitBuildStrategy = new UnitMethodHandleStrategy();
         UnitBuildContext context = new UnitBuildContext(unitBuildStrategy);
-        context.build();
+        context.build(unitClassMethod);
     }
 
 }

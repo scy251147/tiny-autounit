@@ -3,9 +3,8 @@ package org.tiny.autounit.test;
 import org.junit.jupiter.api.Test;
 import org.tiny.autounit.core.chain.UnitClassAnalyzer;
 import org.tiny.autounit.core.chain.UnitClassScanner;
-import org.tiny.autounit.core.chain.UnitContentBuilder;
 import org.tiny.autounit.core.model.UnitClassMethod;
-
+import org.tiny.autounit.core.strategy.UnitFieldHandleStrategy;
 import java.util.List;
 import java.util.Set;
 
@@ -28,8 +27,8 @@ public class BuildTest {
         assert analysis != null && analysis.size() > 0;
 
         for (UnitClassMethod unitClassMethod : analysis) {
-            UnitContentBuilder unitContentBuilder = new UnitContentBuilder();
-            unitContentBuilder.handleInjectFields(unitClassMethod.getCtClass());
+            UnitFieldHandleStrategy unitFieldHandleStrategy = new UnitFieldHandleStrategy();
+            unitFieldHandleStrategy.build(unitClassMethod);
         }
 
     }

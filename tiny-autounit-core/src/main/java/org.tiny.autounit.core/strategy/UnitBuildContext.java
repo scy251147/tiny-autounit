@@ -1,5 +1,7 @@
 package org.tiny.autounit.core.strategy;
 
+import org.tiny.autounit.core.model.UnitClassMethod;
+
 /**
  * @author shichaoyang
  * @Description: 构建上下文
@@ -22,8 +24,8 @@ public class UnitBuildContext {
     /**
      * 构建具体部件
      */
-    public void build() {
-        unitBuildStrategy.build();
+    public void build(UnitClassMethod unitClassMethod) {
+        unitBuildStrategy.build(unitClassMethod);
     }
 
 }
