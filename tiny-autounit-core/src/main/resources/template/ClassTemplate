@@ -26,7 +26,7 @@ import org.mockito.InjectMocks;
 import org.mockito.stubbing.Answer;
 $${import-path}$$
 
-public class $${test-class-name}$$ {
+public class $${test-class-name}$$ extends BaseTest{
 
     $${inject-field}$$
 
