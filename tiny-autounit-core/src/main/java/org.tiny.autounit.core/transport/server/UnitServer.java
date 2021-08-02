@@ -1,4 +1,4 @@
-package org.tiny.autounit.core.stuff.server;
+package org.tiny.autounit.core.transport.server;
 
 /**
  * @author shichaoyang
