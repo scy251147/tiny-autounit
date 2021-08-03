@@ -28,6 +28,11 @@ $${import-path}$$
 
 public class $${test-class-name}$$ extends BaseTest{
 
+     @Before
+     public void init(){
+         MockitoAnnotations.initMocks(this);
+     }
+
     $${inject-field}$$
 
     &&{{method-body}}&&
