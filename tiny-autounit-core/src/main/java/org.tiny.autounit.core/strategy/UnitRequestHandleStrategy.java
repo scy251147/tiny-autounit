@@ -2,6 +2,7 @@ package org.tiny.autounit.core.strategy;
 
 import org.tiny.autounit.core.model.UnitClassMethod;
 import org.tiny.autounit.core.model.UnitStrategyContent;
+import org.tiny.autounit.core.model.context.UnitMockContext;
 
 /**
  * @author shichaoyang
@@ -11,7 +12,7 @@ import org.tiny.autounit.core.model.UnitStrategyContent;
 public class UnitRequestHandleStrategy implements IUnitBuildStrategy {
 
     @Override
-    public UnitStrategyContent build(UnitClassMethod unitClassMethod) {
+    public UnitStrategyContent build(UnitClassMethod unitClassMethod, UnitMockContext unitMockContext) {
         return null;
     }
 }

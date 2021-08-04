@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.tiny.autounit.core.model.UnitClassMethod;
 import org.tiny.autounit.core.model.UnitClassType;
 import org.tiny.autounit.core.model.UnitStrategyContent;
+import org.tiny.autounit.core.model.context.UnitInjectModel;
+import org.tiny.autounit.core.model.context.UnitMockContext;
 import org.tiny.autounit.core.utils.RegexUtil;
 
 /**
@@ -16,7 +18,7 @@ import org.tiny.autounit.core.utils.RegexUtil;
 public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
 
     @Override
-    public UnitStrategyContent build(UnitClassMethod unitClassMethod) {
+    public UnitStrategyContent build(UnitClassMethod unitClassMethod, UnitMockContext unitMockContext) {
 
         CtField[] declaredFields = unitClassMethod.getCtClass().getDeclaredFields();
 
@@ -26,6 +28,14 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
         stringBuilder.append("@InjectMocks").append(RegexUtil.newLine());
         stringBuilder.append(RegexUtil.newTab()).append("private " + RegexUtil.getClassName(classFullName) + " " + RegexUtil.getClassVariableName(classFullName)).append(RegexUtil.newLine());
         stringBuilder.append(RegexUtil.newLine());
+
+        //添加到上下文，方便后面取用
+        if(unitMockContext == null){
+            unitMockContext = new UnitMockContext();
+        }
+        UnitInjectModel unitInjectModel = new UnitInjectModel();
+        unitInjectModel.setClassName(RegexUtil.getClassVariableName(classFullName));
+        unitMockContext.setUnitInjectModel(unitInjectModel);
 
         StringBuilder importBuilder = new StringBuilder();
 

@@ -31,7 +31,7 @@ public class TestUnitFieldHandleStrategy {
 
         for (UnitClassMethod unitClassMethod : analysis) {
             UnitFieldHandleStrategy unitFieldHandleStrategy = new UnitFieldHandleStrategy();
-            UnitStrategyContent build = unitFieldHandleStrategy.build(unitClassMethod);
+            UnitStrategyContent build = unitFieldHandleStrategy.build(unitClassMethod, null);
             System.out.println(JSON.toJSONString(build));
             assert build != null && build.getContent().containsKey(UnitClassType.inject_field);
         }

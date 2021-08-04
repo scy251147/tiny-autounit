@@ -7,6 +7,8 @@ import org.tiny.autounit.core.chain.UnitClassScanner;
 import org.tiny.autounit.core.model.UnitClassMethod;
 import org.tiny.autounit.core.model.UnitClassType;
 import org.tiny.autounit.core.model.UnitStrategyContent;
+import org.tiny.autounit.core.model.context.UnitInjectModel;
+import org.tiny.autounit.core.model.context.UnitMockContext;
 import org.tiny.autounit.core.strategy.UnitMethodHandleStrategy;
 
 import java.util.List;
@@ -30,9 +32,14 @@ public class TestUnitMethodHandleStrategy {
         List<UnitClassMethod> analysis = unitClassAnalyzer.analysis(allClassesUsingClassLoader);
         assert analysis != null && analysis.size() > 0;
 
+        UnitMockContext context = new UnitMockContext();
+        UnitInjectModel injectModel = new UnitInjectModel();
+        injectModel.setClassName("unitBizService");
+        context.setUnitInjectModel(injectModel);
+
         for (UnitClassMethod unitClassMethod : analysis) {
             UnitMethodHandleStrategy methodHandleStrategy = new UnitMethodHandleStrategy();
-            UnitStrategyContent build = methodHandleStrategy.build(unitClassMethod);
+            UnitStrategyContent build = methodHandleStrategy.build(unitClassMethod, context);
             System.out.println(JSON.toJSONString(build));
             assert build != null && build.getContent().containsKey(UnitClassType.method_body);
         }

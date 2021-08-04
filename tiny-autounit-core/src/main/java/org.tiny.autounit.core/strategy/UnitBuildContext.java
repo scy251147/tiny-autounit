@@ -2,6 +2,7 @@ package org.tiny.autounit.core.strategy;
 
 import org.tiny.autounit.core.model.UnitClassMethod;
 import org.tiny.autounit.core.model.UnitStrategyContent;
+import org.tiny.autounit.core.model.context.UnitMockContext;
 
 /**
  * @author shichaoyang
@@ -25,8 +26,8 @@ public class UnitBuildContext {
     /**
      * 构建具体部件
      */
-    public UnitStrategyContent build(UnitClassMethod unitClassMethod) {
-        return unitBuildStrategy.build(unitClassMethod);
+    public UnitStrategyContent build(UnitClassMethod unitClassMethod, UnitMockContext unitMockContext) {
+        return unitBuildStrategy.build(unitClassMethod, unitMockContext);
     }
 
 }
