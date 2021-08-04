@@ -15,6 +15,7 @@ public class ParseOutputParamTemplate implements IMethodBodyParse {
     public String parse(UnitMethodPair methodPair, UnitMockContext unitMockContext) {
 
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(RegexUtil.newLine()).append(RegexUtil.new4Tab()).append(RegexUtil.new3Tab());
 
         //获取返回值
         String returnType = RegexUtil.getClassName(methodPair.getMethod().getReturnType().getName());

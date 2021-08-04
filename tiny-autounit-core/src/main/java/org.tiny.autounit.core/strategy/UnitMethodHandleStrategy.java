@@ -1,6 +1,5 @@
 package org.tiny.autounit.core.strategy;
 
-import javassist.bytecode.LocalVariableAttribute;
 import lombok.extern.slf4j.Slf4j;
 import org.tiny.autounit.core.model.UnitClassMethod;
 import org.tiny.autounit.core.model.UnitClassType;
@@ -9,6 +8,7 @@ import org.tiny.autounit.core.model.UnitStrategyContent;
 import org.tiny.autounit.core.model.context.UnitMockContext;
 import org.tiny.autounit.core.parser.ParseAssertionTemplate;
 import org.tiny.autounit.core.parser.ParseInputParamsTemplate;
+import org.tiny.autounit.core.parser.ParseMethodBodyTemplate;
 import org.tiny.autounit.core.parser.ParseOutputParamTemplate;
 import org.tiny.autounit.core.utils.FileOpsUtil;
 import org.tiny.autounit.core.utils.RegexUtil;
@@ -75,11 +75,14 @@ public class UnitMethodHandleStrategy implements IUnitBuildStrategy {
 
         StringBuilder builder = new StringBuilder();
 
+        //方法体处理
+        builder.append(new ParseMethodBodyTemplate().parse(methodPair, unitMockContext));
+
         //返参处理
         builder.append(new ParseOutputParamTemplate().parse(methodPair, unitMockContext));
 
         //入参处理
-        builder.append((new ParseInputParamsTemplate()).parse(methodPair, unitMockContext));
+        builder.append(new ParseInputParamsTemplate().parse(methodPair, unitMockContext));
 
         //断言处理
         builder.append(new ParseAssertionTemplate().parse(methodPair, unitMockContext));
