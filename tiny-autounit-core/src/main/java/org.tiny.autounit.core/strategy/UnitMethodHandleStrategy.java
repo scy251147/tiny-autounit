@@ -28,13 +28,13 @@ public class UnitMethodHandleStrategy implements IUnitBuildStrategy {
         for (CtMethod ctMethod : unitClassMethod.getCtMethods()) {
             String methodName = "when_" + ctMethod.getName() + "_then_return_success";
             String methodBody = getMehtodTemplateContent();
-            //替换掉方法
+            //替换掉方法名称
             methodBody = methodBody.replace(UnitClassType.test_method_name.getExpr(), methodName);
+            //替换掉方法内容
+            methodBody = methodBody.replace(UnitClassType.test_method_body.getExpr(), handleMethodTemplateContent(ctMethod));
             //不存在则添加
             if (!unitStrategyContent.getContent().containsKey(UnitClassType.method_body)) {
-                StringBuilder methodBodyBuilder = new StringBuilder();
-                methodBodyBuilder.append(methodBody);
-                unitStrategyContent.getContent().put(UnitClassType.method_body, methodBodyBuilder);
+                unitStrategyContent.getContent().put(UnitClassType.method_body, new StringBuilder().append(methodBody));
             }
             //存在则追加
             else {
@@ -44,7 +44,6 @@ public class UnitMethodHandleStrategy implements IUnitBuildStrategy {
                         .append(methodBody);
             }
         }
-
         return unitStrategyContent;
     }
 
@@ -56,5 +55,14 @@ public class UnitMethodHandleStrategy implements IUnitBuildStrategy {
     private String getMehtodTemplateContent() {
         String methodTemplateContent = FileOpsUtil.readTemplate("template/MethodTemplate");
         return methodTemplateContent;
+    }
+
+    /**
+     * 处理方法体
+     * @param currentMethod
+     * @return
+     */
+    private String handleMethodTemplateContent(CtMethod currentMethod){
+        return "//todo";
     }
 }
