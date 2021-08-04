@@ -53,4 +53,20 @@ public class RegexUtil {
         return classFullName.substring(1, classFullName.lastIndexOf(splitter));
     }
 
+    /**
+     * 新行
+     * @return
+     */
+    public static String newLine(){
+        return "\n";
+    }
+
+    /**
+     * 缩进
+     * @return
+     */
+    public static String newTab(){
+        return "    ";
+    }
+
 }

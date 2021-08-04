@@ -23,9 +23,9 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
         String classFullName = unitClassMethod.getCtClass().getName();
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("@InjectMocks").append("\n");
-        stringBuilder.append("    private " + RegexUtil.getClassName(classFullName) + " " + RegexUtil.getClassVariableName(classFullName)).append("\n");
-        stringBuilder.append("\n");
+        stringBuilder.append("@InjectMocks").append(RegexUtil.newLine());
+        stringBuilder.append(RegexUtil.newTab()).append("private " + RegexUtil.getClassName(classFullName) + " " + RegexUtil.getClassVariableName(classFullName)).append(RegexUtil.newLine());
+        stringBuilder.append(RegexUtil.newLine());
 
         StringBuilder importBuilder = new StringBuilder();
 
@@ -33,8 +33,8 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
             //校验注入标签
             if (checkAnnotation(declaredField)) {
                 //生成mock内容
-                stringBuilder.append("    @Mock").append("\n");
-                stringBuilder.append("    private " + RegexUtil.getClassName(declaredField.getFieldInfo().getDescriptor().replace(";", ""), "/") + " " + declaredField.getFieldInfo().getName());
+                stringBuilder.append(RegexUtil.newTab()).append("@Mock").append("\n");
+                stringBuilder.append(RegexUtil.newTab()).append("private " + RegexUtil.getClassName(declaredField.getFieldInfo().getDescriptor().replace(";", ""), "/") + " " + declaredField.getFieldInfo().getName());
                 //生成import内容
                 importBuilder.append("import " + RegexUtil.getClassPath(declaredField.getFieldInfo().getDescriptor(), "/").replace("/", ".") + ";");
             }
