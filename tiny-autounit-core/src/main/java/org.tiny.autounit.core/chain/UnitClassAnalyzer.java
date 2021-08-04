@@ -46,6 +46,7 @@ public class UnitClassAnalyzer {
                     //保存类对象
                     UnitClassMethod unitClassMethod = new UnitClassMethod();
                     unitClassMethod.setCtClass(ctClass);
+                    unitClassMethod.setClazz(aClass);
 
                     //保存方法列表
                     CtMethod[] declaredMethods = ctClass.getDeclaredMethods();

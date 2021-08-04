@@ -14,4 +14,6 @@ public class UnitMockModel {
 
     private String methodName;
 
+    private Class clazz;
+
 }

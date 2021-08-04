@@ -2,6 +2,7 @@ package org.tiny.autounit.core.model.context;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,10 +17,10 @@ public class UnitMockContext {
     private UnitInjectModel unitInjectModel;
 
     //mock列表信息
-    private List<UnitMockModel> unitMockModelList;
+    private List<UnitMockModel> unitMockModelList = new ArrayList<>();
 
     //spy列表信息
-    private List<UnitSpyModel> unitSpyModelList;
+    private List<UnitSpyModel> unitSpyModelList = new ArrayList<>();
 
     //返回值对象类型
     private String returnType;

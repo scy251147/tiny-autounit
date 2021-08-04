@@ -14,9 +14,14 @@ import java.util.List;
 public class UnitClassMethod {
 
     /**
-     * 测试类
+     * 测试类CtClass类型对象
      */
     private CtClass ctClass;
+
+    /**
+     * 测试类Class类型对象
+     */
+    private Class clazz;
 
     /**
      * 测试方法

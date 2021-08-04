@@ -10,9 +10,6 @@ import org.tiny.autounit.core.model.context.UnitMockContext;
 import org.tiny.autounit.core.model.context.UnitMockModel;
 import org.tiny.autounit.core.utils.RegexUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author shichaoyang
  * @Description: 处理注入部分
@@ -69,7 +66,6 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
         if (unitMockContext == null) {
             unitMockContext = new UnitMockContext();
         }
-
         //设置injectMocks
         UnitInjectModel unitInjectModel = new UnitInjectModel();
         unitInjectModel.setClassName(RegexUtil.getClassVariableName(injectClassFullName));
@@ -82,16 +78,10 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
      * @param mockClassName
      */
     private void fillMocksInfo2Context(UnitMockContext unitMockContext, String mockClassName) {
-        if (unitMockContext == null) {
-            unitMockContext = new UnitMockContext();
-        }
-
         //设置mocks
-        List<UnitMockModel> mockModels = new ArrayList<>();
         UnitMockModel unitMockModel = new UnitMockModel();
         unitMockModel.setClassName(mockClassName);
-        mockModels.add(unitMockModel);
-        unitMockContext.setUnitMockModelList(mockModels);
+        unitMockContext.getUnitMockModelList().add(unitMockModel);
     }
 
     /**

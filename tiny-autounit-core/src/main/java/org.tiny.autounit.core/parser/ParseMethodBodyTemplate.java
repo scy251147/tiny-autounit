@@ -1,15 +1,23 @@
 package org.tiny.autounit.core.parser;
 
+import javassist.CtMethod;
+import javassist.expr.ExprEditor;
+import javassist.expr.MethodCall;
+import lombok.extern.slf4j.Slf4j;
 import org.tiny.autounit.core.model.UnitMethodPair;
 import org.tiny.autounit.core.model.context.UnitMockContext;
+import org.tiny.autounit.core.model.context.UnitMockModel;
 import org.tiny.autounit.core.utils.ReflectUtil;
 import org.tiny.autounit.core.utils.RegexUtil;
+
+import java.util.Set;
 
 /**
  * @author shichaoyang
  * @Description: 方法体解析
  * @date 2021-08-04 18:16
  */
+@Slf4j
 public class ParseMethodBodyTemplate implements IMethodBodyParse {
 
     @Override
@@ -32,11 +40,50 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
      */
     private String createStubs(UnitMethodPair methodPair, UnitMockContext unitMockContext) {
         StringBuilder builder = new StringBuilder();
-        //builder.append("//todo 构造数据并打桩" + methodPair.getMethod().getParameterCount());
         //走查方法体，对@Mock中的实体进行打桩
-        
+
         builder.append(RegexUtil.newLine());
         return builder.toString();
+    }
+
+    /**
+     * 遍历method，直至找到能力类
+     *
+     * @param ctMethod
+     * @param deep
+     */
+    public static Set<String> findMockedMethods(CtMethod ctMethod, Set<String> set, int deep, UnitMockContext unitMockContext) {
+        try {
+            Integer MAX_DEEP = 10;
+            ExprEditor exprEditor = new ExprEditor() {
+                public void edit(MethodCall m) {
+                    try {
+                        String methodCallName = m.getClassName();
+                        Class refClass = Class.forName(methodCallName);
+                        for (UnitMockModel unitMockModel : unitMockContext.getUnitMockModelList()) {
+                            //找到继承对象
+                            if (unitMockModel.getClazz().isAssignableFrom(refClass)) {
+                                
+                            }
+                            //递归查找
+                            else {
+                                if (deep > MAX_DEEP) {
+                                    return;
+                                }
+                                findMockedMethods(m.getMethod(), set, deep + 1, unitMockContext);
+                            }
+                        }
+                    } catch (Exception e) {
+                        log.error("ParseMethodBodyTemplate.findMockedMethods.loop error. ", e);
+                    }
+                }
+            };
+            ctMethod.instrument(exprEditor);
+        } catch (Exception e) {
+            log.error("ParseMethodBodyTemplate.findMockedMethods error", e);
+        }
+
+        return set;
     }
 
     /**
