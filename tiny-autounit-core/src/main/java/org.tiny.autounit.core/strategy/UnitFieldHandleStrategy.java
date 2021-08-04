@@ -42,8 +42,8 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
 
         //组装并返回
         UnitStrategyContent content = new UnitStrategyContent();
-        content.getContent().put(UnitClassType.inject_field, stringBuilder.toString());
-        content.getContent().put(UnitClassType.import_path, importBuilder.toString());
+        content.getContent().put(UnitClassType.inject_field, stringBuilder);
+        content.getContent().put(UnitClassType.import_path, importBuilder);
         return content;
     }
 

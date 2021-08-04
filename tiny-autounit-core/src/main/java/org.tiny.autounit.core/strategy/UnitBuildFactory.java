@@ -38,7 +38,9 @@ public class UnitBuildFactory {
         //替换import package
         classTemplateContent = classTemplateContent.replace(UnitClassType.import_path.getExpr(), fieldContent.getContent().get(UnitClassType.import_path));
 
-        //组装方法并替换
+        //替换模板中的方法体
+        UnitStrategyContent methodContent = makeMethodBody(unitClassMethod);
+        classTemplateContent = classTemplateContent.replace(UnitClassType.method_body.getExpr(), methodContent.getContent().get(UnitClassType.test_method_body));
 
         //组装入参并替换
 

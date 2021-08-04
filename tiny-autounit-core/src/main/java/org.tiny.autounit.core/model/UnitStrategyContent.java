@@ -1,7 +1,6 @@
 package org.tiny.autounit.core.model;
 
 import lombok.Data;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +15,6 @@ public class UnitStrategyContent {
     /**
      * 类型对应的内容
      */
-    private Map<UnitClassType, String> content = new HashMap<>();
+    private Map<UnitClassType, StringBuilder> content = new HashMap<>();
 
 }

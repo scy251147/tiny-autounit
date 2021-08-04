@@ -39,6 +39,35 @@ public class TestUnitBizService extends BaseTest{
     @Mock
     private IPriceCalcService priceCalcService
 
-    &&{{method-body}}&&
+    @Test
+    public void when_proecess_then_return_success(){
+       $${test-method-body}$$
+    }
+
+    @Test
+    public void when_proecess1_then_return_success(){
+       $${test-method-body}$$
+    }
+
+    @Test
+    public void when_proecess2_then_return_success(){
+       $${test-method-body}$$
+    }
+
+    @Test
+    public void when_proecess3_then_return_success(){
+       $${test-method-body}$$
+    }
+
+    @Test
+    public void when_proecess4_then_return_success(){
+       $${test-method-body}$$
+    }
+
+    @Test
+    public void when_proecess5_then_return_success(){
+       $${test-method-body}$$
+    }
+
 
 }

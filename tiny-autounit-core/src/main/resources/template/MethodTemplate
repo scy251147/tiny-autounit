@@ -1,4 +1,4 @@
 @Test
-public void $${test-method-name}$$(){
-   $${test-method-body}$$
-}
+    public void $${test-method-name}$$(){
+       $${test-method-body}$$
+    }

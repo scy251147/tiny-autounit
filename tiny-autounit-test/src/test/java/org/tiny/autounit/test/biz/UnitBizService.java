@@ -19,4 +19,29 @@ public class UnitBizService implements IUnitBizService {
         priceCalcService.calc();
         System.out.println("process work biz");
     }
+
+    public void proecess1() {
+        priceCalcService.calc();
+        System.out.println("process work biz");
+    }
+
+    public void proecess2() {
+        priceCalcService.calc();
+        System.out.println("process work biz");
+    }
+
+    public void proecess3() {
+        priceCalcService.calc();
+        System.out.println("process work biz");
+    }
+
+    public void proecess4() {
+        priceCalcService.calc();
+        System.out.println("process work biz");
+    }
+
+    public void proecess5() {
+        priceCalcService.calc();
+        System.out.println("process work biz");
+    }
 }
