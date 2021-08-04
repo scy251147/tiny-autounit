@@ -31,14 +31,14 @@ public class UnitMethodHandleStrategy implements IUnitBuildStrategy {
             //替换掉方法
             methodBody = methodBody.replace(UnitClassType.test_method_name.getExpr(), methodName);
             //不存在则添加
-            if (!unitStrategyContent.getContent().containsKey(UnitClassType.test_method_body)) {
+            if (!unitStrategyContent.getContent().containsKey(UnitClassType.method_body)) {
                 StringBuilder methodBodyBuilder = new StringBuilder();
                 methodBodyBuilder.append(methodBody);
-                unitStrategyContent.getContent().put(UnitClassType.test_method_body, methodBodyBuilder);
+                unitStrategyContent.getContent().put(UnitClassType.method_body, methodBodyBuilder);
             }
             //存在则追加
             else {
-                unitStrategyContent.getContent().get(UnitClassType.test_method_body)
+                unitStrategyContent.getContent().get(UnitClassType.method_body)
                         .append(RegexUtil.newLine())
                         .append(RegexUtil.newTab())
                         .append(methodBody);
