@@ -50,13 +50,14 @@ public class UnitClassAnalyzer {
                         Object unitExeclude = declaredMethod.getAnnotation(UnitExeclude.class);
                         if (unitExeclude == null) {
                             unitClassMethod.getCtMethods().add(declaredMethod);
-                            unitClassMethodList.add(unitClassMethod);
                         }
                     }
+                    unitClassMethodList.add(unitClassMethod);
                 }
             } catch (Exception e) {
                 log.error("UnitClassAnalyzer.analysis get class error", e);
             }
+
         }
         return unitClassMethodList;
     }
