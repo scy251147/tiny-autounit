@@ -14,8 +14,10 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
     @Override
     public String parse(UnitMethodPair methodPair, UnitMockContext unitMockContext) {
         StringBuilder builder = new StringBuilder();
+
         builder.append("//todo 构造数据并打桩");
-        builder.append(RegexUtil.newLine()).append(RegexUtil.new4Tab());
+
+        builder.append(RegexUtil.newLine());
         return builder.toString();
     }
 }

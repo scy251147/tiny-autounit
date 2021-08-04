@@ -9,4 +9,9 @@ import lombok.Data;
  */
 @Data
 public class UnitMockModel {
+
+    private String className;
+
+    private String methodName;
+
 }

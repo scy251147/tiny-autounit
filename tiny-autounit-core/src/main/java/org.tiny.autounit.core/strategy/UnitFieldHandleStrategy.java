@@ -7,7 +7,11 @@ import org.tiny.autounit.core.model.UnitClassType;
 import org.tiny.autounit.core.model.UnitStrategyContent;
 import org.tiny.autounit.core.model.context.UnitInjectModel;
 import org.tiny.autounit.core.model.context.UnitMockContext;
+import org.tiny.autounit.core.model.context.UnitMockModel;
 import org.tiny.autounit.core.utils.RegexUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author shichaoyang
@@ -30,12 +34,7 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
         stringBuilder.append(RegexUtil.newLine());
 
         //添加到上下文，方便后面取用
-        if(unitMockContext == null){
-            unitMockContext = new UnitMockContext();
-        }
-        UnitInjectModel unitInjectModel = new UnitInjectModel();
-        unitInjectModel.setClassName(RegexUtil.getClassVariableName(classFullName));
-        unitMockContext.setUnitInjectModel(unitInjectModel);
+        fillInjectMocksInfo2Context(unitMockContext, classFullName);
 
         StringBuilder importBuilder = new StringBuilder();
 
@@ -43,10 +42,14 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
             //校验注入标签
             if (checkAnnotation(declaredField)) {
                 //生成mock内容
-                stringBuilder.append(RegexUtil.new4Tab()).append("@Mock").append("\n");
-                stringBuilder.append(RegexUtil.new4Tab()).append("private " + RegexUtil.getClassName(declaredField.getFieldInfo().getDescriptor().replace(";", ""), "/") + " " + declaredField.getFieldInfo().getName());
+                stringBuilder.append(RegexUtil.new4Tab()).append("@Mock").append(RegexUtil.newLine());
+                String mockClassName = RegexUtil.getClassName(declaredField.getFieldInfo().getDescriptor().replace(";", ""), "/");
+                String mockVariaName = declaredField.getFieldInfo().getName();
+                stringBuilder.append(RegexUtil.new4Tab()).append("private " + mockClassName + " " + mockVariaName);
                 //生成import内容
                 importBuilder.append("import " + RegexUtil.getClassPath(declaredField.getFieldInfo().getDescriptor(), "/").replace("/", ".") + ";");
+                //添加到上下文
+                fillMocksInfo2Context(unitMockContext, RegexUtil.getClassName(mockVariaName));
             }
         }
 
@@ -55,6 +58,40 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
         content.getContent().put(UnitClassType.inject_field, stringBuilder);
         content.getContent().put(UnitClassType.import_path, importBuilder);
         return content;
+    }
+
+    /**
+     * 添加上下文信息， @InjectMocks
+     * @param unitMockContext
+     * @param injectClassFullName
+     */
+    private void fillInjectMocksInfo2Context(UnitMockContext unitMockContext, String injectClassFullName) {
+        if (unitMockContext == null) {
+            unitMockContext = new UnitMockContext();
+        }
+
+        //设置injectMocks
+        UnitInjectModel unitInjectModel = new UnitInjectModel();
+        unitInjectModel.setClassName(RegexUtil.getClassVariableName(injectClassFullName));
+        unitMockContext.setUnitInjectModel(unitInjectModel);
+    }
+
+    /**
+     * 添加上下文信息， @Mock
+     * @param unitMockContext
+     * @param mockClassName
+     */
+    private void fillMocksInfo2Context(UnitMockContext unitMockContext, String mockClassName) {
+        if (unitMockContext == null) {
+            unitMockContext = new UnitMockContext();
+        }
+
+        //设置mocks
+        List<UnitMockModel> mockModels = new ArrayList<>();
+        UnitMockModel unitMockModel = new UnitMockModel();
+        unitMockModel.setClassName(mockClassName);
+        mockModels.add(unitMockModel);
+        unitMockContext.setUnitMockModelList(mockModels);
     }
 
     /**
