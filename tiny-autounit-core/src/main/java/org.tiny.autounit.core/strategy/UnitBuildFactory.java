@@ -1,5 +1,6 @@
 package org.tiny.autounit.core.strategy;
 
+import lombok.extern.slf4j.Slf4j;
 import org.tiny.autounit.core.model.UnitClassMethod;
 
 /**
@@ -7,14 +8,15 @@ import org.tiny.autounit.core.model.UnitClassMethod;
  * @Description: 构建
  * @date 2021-07-30 17:38
  */
+@Slf4j
 public class UnitBuildFactory {
 
     /**
-     * 构建测试类内容
+     * 构建测试类内容, 将解析完毕的内容组装成一个测试类
      *
      * @return
      */
-    public static String makeContent(UnitClassMethod unitClassMethod) {
+    public static String makeContent(UnitClassMethod unitClassMethod, String packageName) {
         makeMethodRequest(unitClassMethod);
         makeInjectField(unitClassMethod);
         makeMethodBody(unitClassMethod);

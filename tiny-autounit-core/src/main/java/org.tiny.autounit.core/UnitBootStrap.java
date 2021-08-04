@@ -4,7 +4,7 @@ import org.tiny.autounit.core.chain.UnitClassAnalyzer;
 import org.tiny.autounit.core.chain.UnitClassGenerator;
 import org.tiny.autounit.core.chain.UnitClassScanner;
 import org.tiny.autounit.core.chain.UnitContentBuilder;
-import org.tiny.autounit.core.model.UnitClassBuild;
+import org.tiny.autounit.core.model.UnitClassContent;
 import org.tiny.autounit.core.model.UnitClassMethod;
 import java.util.List;
 import java.util.Set;
@@ -31,7 +31,7 @@ public class UnitBootStrap {
 
         //3. 生成单测内容
         UnitContentBuilder builder = new UnitContentBuilder();
-        List<UnitClassBuild> unitClassBuilds = builder.build(unitClassMethods);
+        List<UnitClassContent> unitClassBuilds = builder.build(unitClassMethods, packageName);
         //3.1 根据入参，组装mockserver访问链接，拿到数据对入参进行组装
         //3.2 生成单测方法体
         //3.3 生成单测返回

@@ -13,7 +13,7 @@ import java.util.Set;
  * @Description:
  * @date 2021-07-30 17:11
  */
-public class BuildTest {
+public class TestUnitClassAnalyzer {
 
     @Test
     public void injectTest() {

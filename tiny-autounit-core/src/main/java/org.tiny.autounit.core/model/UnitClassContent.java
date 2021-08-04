@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 2021-07-30 15:47
  */
 @Data
-public class UnitClassBuild {
+public class UnitClassContent {
 
     private String packageName;
 

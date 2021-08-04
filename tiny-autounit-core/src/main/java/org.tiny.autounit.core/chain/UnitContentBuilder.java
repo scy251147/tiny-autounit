@@ -1,7 +1,7 @@
 package org.tiny.autounit.core.chain;
 
 import lombok.extern.slf4j.Slf4j;
-import org.tiny.autounit.core.model.UnitClassBuild;
+import org.tiny.autounit.core.model.UnitClassContent;
 import org.tiny.autounit.core.model.UnitClassMethod;
 import org.tiny.autounit.core.strategy.UnitBuildFactory;
 import java.util.ArrayList;
@@ -15,19 +15,19 @@ import java.util.List;
 @Slf4j
 public class UnitContentBuilder {
 
-    public List<UnitClassBuild> build(List<UnitClassMethod> unitClassMethodList) {
+    public List<UnitClassContent> build(List<UnitClassMethod> unitClassMethodList, String packageName) {
 
         //参数校验
         if (unitClassMethodList == null || unitClassMethodList.size() <= 0) {
             return null;
         }
 
-        List<UnitClassBuild> unitClassBuilds = new ArrayList<>();
+        List<UnitClassContent> unitClassBuilds = new ArrayList<>();
         for (UnitClassMethod unitClassMethod : unitClassMethodList) {
-            UnitClassBuild unitClassBuild = new UnitClassBuild();
+            UnitClassContent unitClassBuild = new UnitClassContent();
             unitClassBuild.setPackageName(unitClassMethod.getCtClass().getPackageName());
             unitClassBuild.setClassName(unitClassMethod.getCtClass().getName());
-            unitClassBuild.setContent(UnitBuildFactory.makeContent(unitClassMethod));
+            unitClassBuild.setContent(UnitBuildFactory.makeContent(unitClassMethod, packageName));
             unitClassBuilds.add(unitClassBuild);
         }
 

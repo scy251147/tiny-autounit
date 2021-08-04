@@ -1,7 +1,7 @@
 package org.tiny.autounit.core.chain;
 
 import lombok.extern.slf4j.Slf4j;
-import org.tiny.autounit.core.model.UnitClassBuild;
+import org.tiny.autounit.core.model.UnitClassContent;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 public class UnitClassGenerator {
 
-    public void generate(List<UnitClassBuild> unitClassBuilds) {
+    public void generate(List<UnitClassContent> unitClassBuilds) {
 
         //参数校验
         if (unitClassBuilds == null || unitClassBuilds.size() <= 0) {
@@ -22,19 +22,23 @@ public class UnitClassGenerator {
         }
 
         //遍历循环
-        for (UnitClassBuild unitClassBuild : unitClassBuilds) {
+        for (UnitClassContent unitClassBuild : unitClassBuilds) {
             createTestClass(unitClassBuild.getClassName(), unitClassBuild.getContent());
         }
+
+        //生成基类
+        //TODO
     }
 
     /**
      * 创建类文件
+     *
      * @param fileName
      * @param fileContent
      */
     public boolean createTestClass(String fileName, String fileContent) {
         try {
-            String fmtFileName = fileName + "Test.java";
+            String fmtFileName = "Test" + fileName + ".java";
             PrintWriter writer = new PrintWriter(fmtFileName, "UTF-8");
             writer.write(fileContent);
             writer.close();

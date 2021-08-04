@@ -8,7 +8,7 @@ import org.tiny.autounit.core.chain.UnitClassGenerator;
  * @Description:
  * @date 2021-07-30 15:02
  */
-public class GenerateTest {
+public class TestUnitClassGenerator {
 
     @Test
     public void classFileGenerateTest(){

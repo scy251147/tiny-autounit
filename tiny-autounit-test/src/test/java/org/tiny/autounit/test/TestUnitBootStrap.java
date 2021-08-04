@@ -8,7 +8,7 @@ import org.tiny.autounit.core.UnitBootStrap;
  * @Description:
  * @date 2021-07-28 17:41
  */
-public class ScanTest {
+public class TestUnitBootStrap {
 
     @Test
     public void bootstrapTest(){
