@@ -10,6 +10,8 @@ import org.tiny.autounit.core.model.context.UnitMockContext;
 import org.tiny.autounit.core.model.context.UnitMockModel;
 import org.tiny.autounit.core.utils.RegexUtil;
 
+import java.lang.reflect.Field;
+
 /**
  * @author shichaoyang
  * @Description: 处理注入部分
@@ -35,6 +37,7 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
 
         StringBuilder importBuilder = new StringBuilder();
 
+        //生成field模板内容
         for (CtField declaredField : declaredFields) {
             //校验注入标签
             if (checkAnnotation(declaredField)) {
@@ -46,7 +49,7 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
                 //生成import内容
                 importBuilder.append("import " + RegexUtil.getClassPath(declaredField.getFieldInfo().getDescriptor(), "/").replace("/", ".") + ";");
                 //添加到上下文
-                fillMocksInfo2Context(unitMockContext, RegexUtil.getClassName(mockVariaName));
+                fillMocksInfo2Context(unitClassMethod.getClazz(), unitMockContext, RegexUtil.getClassName(mockVariaName));
             }
         }
 
@@ -77,10 +80,20 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
      * @param unitMockContext
      * @param mockClassName
      */
-    private void fillMocksInfo2Context(UnitMockContext unitMockContext, String mockClassName) {
+    private void fillMocksInfo2Context(Class clazz, UnitMockContext unitMockContext, String mockClassName) {
+
         //设置mocks
         UnitMockModel unitMockModel = new UnitMockModel();
         unitMockModel.setClassName(mockClassName);
+
+        //设置class
+        for (Field field : clazz.getDeclaredFields()) {
+            if (field.getName().equals(mockClassName)) {
+                unitMockModel.setClazz(field.getType());
+                break;
+            }
+        }
+
         unitMockContext.getUnitMockModelList().add(unitMockModel);
     }
 

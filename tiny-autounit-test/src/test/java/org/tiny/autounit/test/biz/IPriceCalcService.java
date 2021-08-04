@@ -7,6 +7,6 @@ package org.tiny.autounit.test.biz;
  */
 public interface IPriceCalcService {
 
-    int calc();
+    int calc(String message);
 
 }

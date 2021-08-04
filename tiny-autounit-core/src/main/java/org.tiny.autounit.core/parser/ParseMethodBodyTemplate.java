@@ -10,6 +10,7 @@ import org.tiny.autounit.core.model.context.UnitMockModel;
 import org.tiny.autounit.core.utils.ReflectUtil;
 import org.tiny.autounit.core.utils.RegexUtil;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -41,7 +42,10 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
     private String createStubs(UnitMethodPair methodPair, UnitMockContext unitMockContext) {
         StringBuilder builder = new StringBuilder();
         //走查方法体，对@Mock中的实体进行打桩
-
+        Set<String> mockedMethods = findMockedMethods(methodPair.getCtMethod(), new HashSet<>(), 0, unitMockContext);
+        for (String mockedMethod : mockedMethods) {
+            builder.append(mockedMethod);
+        }
         builder.append(RegexUtil.newLine());
         return builder.toString();
     }
@@ -63,7 +67,8 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
                         for (UnitMockModel unitMockModel : unitMockContext.getUnitMockModelList()) {
                             //找到继承对象
                             if (unitMockModel.getClazz().isAssignableFrom(refClass)) {
-                                
+                                System.out.println("------hit "+ refClass);
+                                set.add("when("+unitMockModel.getClassName()+"."+m.getMethodName()+"(Mockito.any())).thenReturn(Mockito.any());");
                             }
                             //递归查找
                             else {
