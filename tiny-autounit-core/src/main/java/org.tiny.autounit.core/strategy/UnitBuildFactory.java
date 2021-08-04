@@ -26,17 +26,17 @@ public class UnitBuildFactory {
         String classTemplateContent = FileOpsUtil.readTemplate("template/ClassTemplate");
 
         //替换掉packageName
-        classTemplateContent = classTemplateContent.replace("$${template-package-name}$$", packageName);
+        classTemplateContent = classTemplateContent.replace(UnitClassType.template_package_name.getExpr(), packageName);
 
         //替换类名
-        classTemplateContent = classTemplateContent.replace("$${test-class-name}$$", RegexUtil.getFormatedClassName(unitClassMethod.getCtClass().getName()));
+        classTemplateContent = classTemplateContent.replace(UnitClassType.test_class_name.getExpr(), RegexUtil.getFormatedClassName(unitClassMethod.getCtClass().getName()));
 
         //组装field并替换
         UnitStrategyContent fieldContent = makeInjectField(unitClassMethod);
-        classTemplateContent = classTemplateContent.replace("$${inject-field}$$", fieldContent.getContent().get(UnitClassType.inject_field));
+        classTemplateContent = classTemplateContent.replace(UnitClassType.inject_field.getExpr(), fieldContent.getContent().get(UnitClassType.inject_field));
 
         //替换import package
-        classTemplateContent = classTemplateContent.replace("$${import-path}$$", fieldContent.getContent().get(UnitClassType.import_path));
+        classTemplateContent = classTemplateContent.replace(UnitClassType.import_path.getExpr(), fieldContent.getContent().get(UnitClassType.import_path));
 
         //组装方法并替换
 

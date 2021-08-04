@@ -1,5 +1,6 @@
 package org.tiny.autounit.core.strategy;
 
+import javassist.CtMethod;
 import org.tiny.autounit.core.model.UnitClassMethod;
 import org.tiny.autounit.core.model.UnitStrategyContent;
 
@@ -12,6 +13,9 @@ public class UnitMethodHandleStrategy implements IUnitBuildStrategy {
 
     @Override
     public UnitStrategyContent build(UnitClassMethod unitClassMethod) {
+        for (CtMethod ctMethod : unitClassMethod.getCtMethods()) {
+
+        }
         return null;
     }
 }
