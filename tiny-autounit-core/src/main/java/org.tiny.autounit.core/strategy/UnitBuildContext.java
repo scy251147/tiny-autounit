@@ -24,8 +24,8 @@ public class UnitBuildContext {
     /**
      * 构建具体部件
      */
-    public void build(UnitClassMethod unitClassMethod) {
-        unitBuildStrategy.build(unitClassMethod);
+    public String build(UnitClassMethod unitClassMethod) {
+        return unitBuildStrategy.build(unitClassMethod);
     }
 
 }

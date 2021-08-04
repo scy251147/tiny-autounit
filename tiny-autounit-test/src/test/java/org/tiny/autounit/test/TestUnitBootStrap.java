@@ -13,11 +13,6 @@ public class TestUnitBootStrap {
     @Test
     public void bootstrapTest(){
         UnitBootStrap unitBootStrap = new UnitBootStrap();
-        unitBootStrap.start("org.tiny.autounit.test");
-    }
-
-    @Test
-    public void testClassName(){
-        System.out.println(this.getClass().getName());
+        unitBootStrap.start("org.tiny.autounit.test.biz");
     }
 }

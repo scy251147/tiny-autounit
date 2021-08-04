@@ -2,6 +2,8 @@ package org.tiny.autounit.core.chain;
 
 import lombok.extern.slf4j.Slf4j;
 import org.tiny.autounit.core.model.UnitClassContent;
+import org.tiny.autounit.core.utils.RegexUtil;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -38,7 +40,7 @@ public class UnitClassGenerator {
      */
     public boolean createTestClass(String fileName, String fileContent) {
         try {
-            String fmtFileName = "Test" + fileName + ".java";
+            String fmtFileName = RegexUtil.getFormatedClassName(fileName) + ".java";
             PrintWriter writer = new PrintWriter(fmtFileName, "UTF-8");
             writer.write(fileContent);
             writer.close();

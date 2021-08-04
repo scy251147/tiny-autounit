@@ -10,7 +10,7 @@ import org.tiny.autounit.core.model.UnitClassMethod;
 public class UnitRequestHandleStrategy implements IUnitBuildStrategy {
 
     @Override
-    public void build(UnitClassMethod unitClassMethod) {
-
+    public String build(UnitClassMethod unitClassMethod) {
+        return null;
     }
 }

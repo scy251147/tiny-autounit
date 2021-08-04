@@ -9,6 +9,6 @@ import org.tiny.autounit.core.model.UnitClassMethod;
  */
 public interface IUnitBuildStrategy {
 
-    void build(UnitClassMethod unitClassMethod);
+    String build(UnitClassMethod unitClassMethod);
 
 }

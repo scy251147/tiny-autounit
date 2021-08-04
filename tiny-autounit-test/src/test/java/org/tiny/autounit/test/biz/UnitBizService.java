@@ -2,6 +2,8 @@ package org.tiny.autounit.test.biz;
 
 import org.tiny.autounit.sdk.UnitWalk;
 
+import javax.annotation.Resource;
+
 /**
  * @author shichaoyang
  * @Description:
@@ -10,7 +12,11 @@ import org.tiny.autounit.sdk.UnitWalk;
 @UnitWalk
 public class UnitBizService implements IUnitBizService {
 
+    @Resource
+    private IPriceCalcService priceCalcService;
+
     public void proecess() {
+        priceCalcService.calc();
         System.out.println("process work biz");
     }
 }
