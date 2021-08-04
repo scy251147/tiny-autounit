@@ -1,6 +1,7 @@
 package org.tiny.autounit.core.strategy;
 
 import org.tiny.autounit.core.model.UnitClassMethod;
+import org.tiny.autounit.core.model.UnitStrategyContent;
 
 /**
  * @author shichaoyang
@@ -9,6 +10,6 @@ import org.tiny.autounit.core.model.UnitClassMethod;
  */
 public interface IUnitBuildStrategy {
 
-    String build(UnitClassMethod unitClassMethod);
+    UnitStrategyContent build(UnitClassMethod unitClassMethod);
 
 }

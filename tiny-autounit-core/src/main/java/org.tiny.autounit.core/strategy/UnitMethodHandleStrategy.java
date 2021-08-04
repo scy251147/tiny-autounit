@@ -1,6 +1,7 @@
 package org.tiny.autounit.core.strategy;
 
 import org.tiny.autounit.core.model.UnitClassMethod;
+import org.tiny.autounit.core.model.UnitStrategyContent;
 
 /**
  * @author shichaoyang
@@ -10,7 +11,7 @@ import org.tiny.autounit.core.model.UnitClassMethod;
 public class UnitMethodHandleStrategy implements IUnitBuildStrategy {
 
     @Override
-    public String build(UnitClassMethod unitClassMethod) {
+    public UnitStrategyContent build(UnitClassMethod unitClassMethod) {
         return null;
     }
 }

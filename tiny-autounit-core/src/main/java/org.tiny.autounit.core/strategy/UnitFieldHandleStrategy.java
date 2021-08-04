@@ -3,6 +3,8 @@ package org.tiny.autounit.core.strategy;
 import javassist.CtField;
 import lombok.extern.slf4j.Slf4j;
 import org.tiny.autounit.core.model.UnitClassMethod;
+import org.tiny.autounit.core.model.UnitClassType;
+import org.tiny.autounit.core.model.UnitStrategyContent;
 import org.tiny.autounit.core.utils.RegexUtil;
 
 /**
@@ -14,7 +16,7 @@ import org.tiny.autounit.core.utils.RegexUtil;
 public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
 
     @Override
-    public String build(UnitClassMethod unitClassMethod) {
+    public UnitStrategyContent build(UnitClassMethod unitClassMethod) {
 
         CtField[] declaredFields = unitClassMethod.getCtClass().getDeclaredFields();
 
@@ -22,14 +24,37 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("@InjectMocks").append("\n");
-        stringBuilder.append("    private "+ RegexUtil.getClassName(classFullName)+ " " + RegexUtil.getClassVariableName(classFullName)).append("\n");
+        stringBuilder.append("    private " + RegexUtil.getClassName(classFullName) + " " + RegexUtil.getClassVariableName(classFullName)).append("\n");
         stringBuilder.append("\n");
 
+        StringBuilder importBuilder = new StringBuilder();
+
         for (CtField declaredField : declaredFields) {
-            stringBuilder.append("    @Mock").append("\n");
-            stringBuilder.append("    private " + RegexUtil.getClassName(declaredField.getFieldInfo().getDescriptor().replace(";",""), "/") + " " + declaredField.getFieldInfo().getName());
+            //校验注入标签
+            if (checkAnnotation(declaredField)) {
+                //生成mock内容
+                stringBuilder.append("    @Mock").append("\n");
+                stringBuilder.append("    private " + RegexUtil.getClassName(declaredField.getFieldInfo().getDescriptor().replace(";", ""), "/") + " " + declaredField.getFieldInfo().getName());
+                //生成import内容
+                importBuilder.append("import " + RegexUtil.getClassPath(declaredField.getFieldInfo().getDescriptor(), "/").replace("/", ".") + ";");
+            }
         }
 
-        return stringBuilder.toString();
+        //组装并返回
+        UnitStrategyContent content = new UnitStrategyContent();
+        content.getContent().put(UnitClassType.inject_field, stringBuilder.toString());
+        content.getContent().put(UnitClassType.import_path, importBuilder.toString());
+        return content;
+    }
+
+    /**
+     * 校验spring的@Resource或者@Autowired标签，以便于使结果更准确
+     *
+     * @param declaredField
+     * @return
+     */
+    private boolean checkAnnotation(CtField declaredField) {
+        //TODO 最好检查下spring @Resource和@Autowired标签，会更准确
+        return true;
     }
 }

@@ -44,4 +44,13 @@ public class RegexUtil {
         return classFullName.substring(classFullName.lastIndexOf(splitter) + 1, classFullName.length());
     }
 
+    /**
+     * 根据类全路径名称获取路径名
+     *
+     * @param classFullName
+     */
+    public static String getClassPath(String classFullName, String splitter) {
+        return classFullName.substring(1, classFullName.lastIndexOf(splitter));
+    }
+
 }
