@@ -44,7 +44,7 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
         //走查方法体，对@Mock中的实体进行打桩
         Set<String> mockedMethods = findMockedMethods(methodPair.getCtMethod(), new HashSet<>(), 0, unitMockContext);
         for (String mockedMethod : mockedMethods) {
-            builder.append(mockedMethod);
+            builder.append(mockedMethod).append(RegexUtil.newLine()).append(RegexUtil.new4Tab()).append(RegexUtil.new3Tab());
         }
         builder.append(RegexUtil.newLine());
         return builder.toString();

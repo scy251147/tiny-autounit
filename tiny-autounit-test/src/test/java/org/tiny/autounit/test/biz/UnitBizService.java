@@ -15,9 +15,14 @@ public class UnitBizService implements IUnitBizService {
     @Resource
     private IPriceCalcService priceCalcService;
 
+    @Resource
+    private ISubmitOrderService submitOrderService;
+
     public String proecess(PriceEntity priceEntity) {
         priceCalcService.calc("sss");
         System.out.println("process work biz");
+        OrderModel orderModel = new OrderModel();
+        submitOrderService.submit(orderModel);
         return "";
     }
 
