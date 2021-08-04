@@ -25,7 +25,7 @@ public class TestUnitClassAnalyzer {
         UnitClassAnalyzer unitClassAnalyzer = new UnitClassAnalyzer();
         List<UnitClassMethod> analysis = unitClassAnalyzer.analysis(classSet);
 
-        assert analysis != null && analysis.size() == 1 && analysis.get(0).getCtMethods().size() == 6;
+        assert analysis != null && analysis.size() == 1 && analysis.get(0).getMethodPairs().size() == 6;
     }
 
 }

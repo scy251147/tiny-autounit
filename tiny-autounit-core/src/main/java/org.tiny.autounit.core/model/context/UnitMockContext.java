@@ -21,4 +21,7 @@ public class UnitMockContext {
     //spy列表信息
     private List<UnitSpyModel> unitSpyModelList;
 
+    //返回值对象类型
+    private String returnType;
+
 }

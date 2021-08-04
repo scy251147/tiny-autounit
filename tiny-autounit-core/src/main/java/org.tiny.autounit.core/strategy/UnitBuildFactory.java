@@ -46,20 +46,9 @@ public class UnitBuildFactory {
         UnitStrategyContent methodContent = makeMethodBody(unitClassMethod, mockContext);
         classTemplateContent = classTemplateContent.replace(UnitClassType.method_body.getExpr(), methodContent.getContent().get(UnitClassType.method_body));
 
-        //组装入参并替换
-
         //最终返回结果
         return classTemplateContent;
 
-    }
-
-    /**
-     * 构建方法入参
-     */
-    private static UnitStrategyContent makeMethodRequest(UnitClassMethod unitClassMethod, UnitMockContext unitMockContext) {
-        IUnitBuildStrategy unitBuildStrategy = new UnitRequestHandleStrategy();
-        UnitBuildContext context = new UnitBuildContext(unitBuildStrategy);
-        return context.build(unitClassMethod, unitMockContext);
     }
 
     /**

@@ -62,11 +62,19 @@ public class RegexUtil {
     }
 
     /**
-     * 缩进
+     * 缩进4
      * @return
      */
-    public static String newTab(){
+    public static String new4Tab(){
         return "    ";
+    }
+
+    /**
+     * 缩进2
+     * @return
+     */
+    public static String new3Tab(){
+        return "   ";
     }
 
 }

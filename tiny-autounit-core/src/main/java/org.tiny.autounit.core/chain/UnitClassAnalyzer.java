@@ -7,8 +7,11 @@ import javassist.CtMethod;
 import lombok.extern.slf4j.Slf4j;
 import org.tiny.autounit.core.UnitBootStrap;
 import org.tiny.autounit.core.model.UnitClassMethod;
+import org.tiny.autounit.core.model.UnitMethodPair;
 import org.tiny.autounit.sdk.UnitExeclude;
 import org.tiny.autounit.sdk.UnitWalk;
+
+import java.lang.reflect.Method;
 import java.util.*;
 
 /**
@@ -49,7 +52,15 @@ public class UnitClassAnalyzer {
                     for (CtMethod declaredMethod : declaredMethods) {
                         Object unitExeclude = declaredMethod.getAnnotation(UnitExeclude.class);
                         if (unitExeclude == null) {
-                            unitClassMethod.getCtMethods().add(declaredMethod);
+                            UnitMethodPair unitMethodPair = new UnitMethodPair();
+                            unitMethodPair.setCtMethod(declaredMethod);
+                            for (Method method : aClass.getDeclaredMethods()) {
+                                //如果是同一个方法，则暂存
+                                if (method.getName().equals(declaredMethod.getName())) {
+                                    unitMethodPair.setMethod(method);
+                                }
+                            }
+                            unitClassMethod.getMethodPairs().add(unitMethodPair);
                         }
                     }
                     unitClassMethodList.add(unitClassMethod);

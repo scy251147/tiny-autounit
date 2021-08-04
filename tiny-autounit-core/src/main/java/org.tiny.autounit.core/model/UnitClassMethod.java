@@ -1,9 +1,7 @@
 package org.tiny.autounit.core.model;
 
 import javassist.CtClass;
-import javassist.CtMethod;
 import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +21,6 @@ public class UnitClassMethod {
     /**
      * 测试方法
      */
-    private List<CtMethod> ctMethods = new ArrayList<>();
+    private List<UnitMethodPair> methodPairs = new ArrayList<>();
 
 }
