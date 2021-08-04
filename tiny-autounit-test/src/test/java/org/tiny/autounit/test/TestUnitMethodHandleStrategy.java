@@ -34,7 +34,7 @@ public class TestUnitMethodHandleStrategy {
             UnitMethodHandleStrategy methodHandleStrategy = new UnitMethodHandleStrategy();
             UnitStrategyContent build = methodHandleStrategy.build(unitClassMethod);
             System.out.println(JSON.toJSONString(build));
-            assert build != null && build.getContent().containsKey(UnitClassType.test_method_body);
+            assert build != null && build.getContent().containsKey(UnitClassType.method_body);
         }
 
     }

@@ -1,6 +1,9 @@
 package org.tiny.autounit.core.strategy;
 
 import javassist.CtMethod;
+import javassist.expr.ExprEditor;
+import javassist.expr.MethodCall;
+import lombok.extern.slf4j.Slf4j;
 import org.tiny.autounit.core.model.UnitClassMethod;
 import org.tiny.autounit.core.model.UnitClassType;
 import org.tiny.autounit.core.model.UnitStrategyContent;
@@ -12,6 +15,7 @@ import org.tiny.autounit.core.utils.RegexUtil;
  * @Description: 处理方法体部分
  * @date 2021-07-30 17:31
  */
+@Slf4j
 public class UnitMethodHandleStrategy implements IUnitBuildStrategy {
 
     @Override
@@ -59,10 +63,27 @@ public class UnitMethodHandleStrategy implements IUnitBuildStrategy {
 
     /**
      * 处理方法体
+     *
      * @param currentMethod
      * @return
      */
-    private String handleMethodTemplateContent(CtMethod currentMethod){
+    private String handleMethodTemplateContent(CtMethod currentMethod) {
+        try {
+            ExprEditor exprEditor = new ExprEditor() {
+                public void edit(MethodCall m) {
+                    try {
+                        String methodCallName = m.getClassName();
+                        Class refClass = Class.forName(methodCallName);
+                        System.out.println("-->" + refClass.getName() + "." + m.getMethodName());
+                    } catch (Exception e) {
+                        log.error("UnitMethodHandleStrategy.handleMethodTemplateContent.edit error. ", e);
+                    }
+                }
+            };
+            currentMethod.instrument(exprEditor);
+        } catch (Exception e) {
+            log.error("UnitMethodHandleStrategy.handleMethodTemplateContent error ", e);
+        }
         return "//todo";
     }
 }

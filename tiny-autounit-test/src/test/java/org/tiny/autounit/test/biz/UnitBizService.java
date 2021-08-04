@@ -15,7 +15,7 @@ public class UnitBizService implements IUnitBizService {
     @Resource
     private IPriceCalcService priceCalcService;
 
-    public void proecess() {
+    public void proecess(PriceEntity priceEntity) {
         priceCalcService.calc();
         System.out.println("process work biz");
     }

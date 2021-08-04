@@ -7,6 +7,6 @@ package org.tiny.autounit.test.biz;
  */
 public interface IUnitBizService {
 
-    void proecess();
+    void proecess(PriceEntity priceEntity);
 
 }
