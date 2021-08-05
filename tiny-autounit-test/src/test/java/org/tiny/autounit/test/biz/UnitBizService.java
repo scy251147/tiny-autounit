@@ -1,5 +1,6 @@
 package org.tiny.autounit.test.biz;
 
+import org.tiny.autounit.sdk.UnitExeclude;
 import org.tiny.autounit.sdk.UnitWalk;
 
 import javax.annotation.Resource;
@@ -41,6 +42,7 @@ public class UnitBizService implements IUnitBizService {
         System.out.println("process work biz");
     }
 
+    @UnitExeclude
     public void proecess4() {
         priceCalcService.calc("sss");
         System.out.println("process work biz");
