@@ -42,7 +42,11 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
     private String createStubs(UnitMethodPair methodPair, UnitMockContext unitMockContext) {
         StringBuilder builder = new StringBuilder();
         //走查方法体，对@Mock中的实体进行打桩
-        Set<String> mockedMethods = findMockedMethods(methodPair.getCtMethod(), new HashSet<>(), 0, unitMockContext);
+        Set<String> mockedMethods = new HashSet<>();
+        for (UnitMockModel unitMockModel : unitMockContext.getUnitMockModelList()) {
+            Set<String> set = findMockedMethods(methodPair.getCtMethod(), new HashSet<>(), 0, unitMockModel);
+            mockedMethods.addAll(set);
+        }
         for (String mockedMethod : mockedMethods) {
             builder.append(mockedMethod).append(RegexUtil.newLine()).append(RegexUtil.new4Tab()).append(RegexUtil.new3Tab());
         }
@@ -56,7 +60,7 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
      * @param ctMethod
      * @param deep
      */
-    public static Set<String> findMockedMethods(CtMethod ctMethod, Set<String> set, int deep, UnitMockContext unitMockContext) {
+    public static Set<String> findMockedMethods(CtMethod ctMethod, Set<String> set, int deep, UnitMockModel unitMockModel) {
         try {
             Integer MAX_DEEP = 10;
             ExprEditor exprEditor = new ExprEditor() {
@@ -64,19 +68,16 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
                     try {
                         String methodCallName = m.getClassName();
                         Class refClass = Class.forName(methodCallName);
-                        for (UnitMockModel unitMockModel : unitMockContext.getUnitMockModelList()) {
-                            //找到继承对象
-                            if (unitMockModel.getClazz().isAssignableFrom(refClass)) {
-                                System.out.println("------hit "+ refClass);
-                                set.add("when("+unitMockModel.getClassName()+"."+m.getMethodName()+"(Mockito.any())).thenReturn(Mockito.any());");
+                        //找到继承对象
+                        if (unitMockModel.getClazz().isAssignableFrom(refClass)) {
+                            set.add("when(" + unitMockModel.getClassName() + "." + m.getMethodName() + "(Mockito.any())).thenReturn(Mockito.any());");
+                        }
+                        //递归查找
+                        else {
+                            if (deep > MAX_DEEP) {
+                                return;
                             }
-                            //递归查找
-                            else {
-                                if (deep > MAX_DEEP) {
-                                    return;
-                                }
-                                findMockedMethods(m.getMethod(), set, deep + 1, unitMockContext);
-                            }
+                            findMockedMethods(m.getMethod(), set, deep + 1, unitMockModel);
                         }
                     } catch (Exception e) {
                         log.error("ParseMethodBodyTemplate.findMockedMethods.loop error. ", e);

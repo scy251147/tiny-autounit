@@ -1,6 +1,5 @@
 package org.tiny.autounit.core.parser;
 
-import com.sun.deploy.util.StringUtils;
 import org.tiny.autounit.core.model.UnitMethodPair;
 import org.tiny.autounit.core.model.context.UnitMockContext;
 import org.tiny.autounit.core.utils.RegexUtil;
