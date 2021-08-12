@@ -22,11 +22,11 @@ public class ReflectUtil {
      */
     public static String setMockDataByClass(Class clazz, String classVariableName) {
         StringBuilder builder = new StringBuilder();
-        String className = RegexUtil.getClassName(clazz.getName());
-        UnitParamData metaParamData = MetaDataUtil.getMetaParamData(className);
-        if (metaParamData!=null) {
-                builder.append(metaParamData.getClassName() + " " + classVariableName + " = " + metaParamData.getNewName() + ";").append(RegexUtil.newLine());
+        UnitParamData metaParamData = MetaDataUtil.getMetaParamData(clazz.getName());
+        if (metaParamData != null) {
+            builder.append(metaParamData.getClassName() + " " + classVariableName + " = " + metaParamData.getNewName() + ";").append(RegexUtil.newLine());
         } else {
+            String className = RegexUtil.getClassName(clazz.getName());
             builder.append(className + " " + classVariableName + " = new " + className + "();").append(RegexUtil.newLine());
             for (Field field : clazz.getDeclaredFields()) {
                 builder.append(RegexUtil.new4Tab())

@@ -2,15 +2,15 @@ package org.tiny.autounit.core.utils;
 
 import javassist.CtClass;
 import org.tiny.autounit.core.model.UnitParamData;
-
-import java.lang.reflect.Field;
-import java.math.BigDecimal;
-
 public class MetaDataUtil {
 
     public static UnitParamData getMetaParamData(String className) {
         UnitParamData unitParamData = null;
-        if (className.equals("int")) {
+        if (className.equals("java.lang.String")) {
+            unitParamData = new UnitParamData();
+            unitParamData.setClassName("String");
+            unitParamData.setNewName("");
+        }else if (className.equals("int")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("int");
             unitParamData.setNewName("0");
@@ -83,6 +83,12 @@ public class MetaDataUtil {
             unitParamData.setClassName("Map");
             unitParamData.setNewName("new HashMap()");
         }
+//        else if(className.contains(".")) {
+//            String name = className.substring(className.lastIndexOf(".") + 1, className.length());
+//            unitParamData = new UnitParamData();
+//            unitParamData.setClassName(name);
+//            unitParamData.setNewName("new " + name + "()");
+//        }
         return unitParamData;
     }
 

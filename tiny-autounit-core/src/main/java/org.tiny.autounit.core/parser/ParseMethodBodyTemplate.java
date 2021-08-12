@@ -6,6 +6,7 @@ import javassist.expr.ExprEditor;
 import javassist.expr.MethodCall;
 import lombok.extern.slf4j.Slf4j;
 import org.tiny.autounit.core.model.UnitMethodPair;
+import org.tiny.autounit.core.model.UnitParamData;
 import org.tiny.autounit.core.model.context.UnitMockContext;
 import org.tiny.autounit.core.model.context.UnitMockModel;
 import org.tiny.autounit.core.utils.MetaDataUtil;
@@ -90,7 +91,12 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
                                     stringBuilder.append(",");
                                 }
                             }
-                            stringBuilder.append(")).thenReturn("+ MetaDataUtil.setReturnDataByReturnType(returnType)+");");
+                            UnitParamData unitParamData = MetaDataUtil.getMetaParamData(returnType.getName());
+                            if(unitParamData != null) {
+                                stringBuilder.append(")).thenReturn(" + unitParamData.getNewName() + ");");
+                            }else{
+                                stringBuilder.append(")).thenReturn(Mockito.any());");
+                            }
                             set.add(stringBuilder.toString());
                         }
                         //递归查找
@@ -122,7 +128,7 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
         StringBuilder builder = new StringBuilder();
         builder.append(RegexUtil.new4Tab()).append(RegexUtil.new3Tab());
         for (Class<?> aClass : methodPair.getMethod().getParameterTypes()) {
-            String variableName = RegexUtil.getClassVariableName(aClass.getName())+"x";
+            String variableName = RegexUtil.getClassVariableName(aClass.getName());
             builder.append(ReflectUtil.setMockDataByClass(aClass, variableName));
         }
         return builder.toString();

@@ -24,6 +24,10 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.InjectMocks;
 import org.mockito.stubbing.Answer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 $${import-path}$$
 
 public class $${test-class-name}$$ extends BaseTest{

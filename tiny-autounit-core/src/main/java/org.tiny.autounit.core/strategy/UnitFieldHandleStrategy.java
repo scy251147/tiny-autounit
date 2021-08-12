@@ -23,6 +23,8 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
     @Override
     public UnitStrategyContent build(UnitClassMethod unitClassMethod, UnitMockContext unitMockContext) {
 
+        StringBuilder importBuilder = new StringBuilder();
+
         CtField[] declaredFields = unitClassMethod.getCtClass().getDeclaredFields();
 
         String classFullName = unitClassMethod.getCtClass().getName();
@@ -32,10 +34,11 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
         stringBuilder.append(RegexUtil.new4Tab()).append("private " + RegexUtil.getClassName(classFullName) + " " + RegexUtil.getClassVariableName(classFullName)).append(";").append(RegexUtil.newLine());
         stringBuilder.append(RegexUtil.newLine());
 
+        importBuilder.append("import " + classFullName + ";\n");
+
         //添加到上下文，方便后面取用
         fillInjectMocksInfo2Context(unitMockContext, classFullName);
 
-        StringBuilder importBuilder = new StringBuilder();
 
         //生成field模板内容
         for (CtField declaredField : declaredFields) {
