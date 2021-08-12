@@ -73,11 +73,11 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
                         Class refClass = null;
                         try {
                             refClass = Class.forName(methodCallName);
-                            if(!refClass.getName().startsWith("com.jd") && !refClass.getName().startsWith("org.tiny")){
+                            if (!refClass.getName().startsWith("com.jd") && !refClass.getName().startsWith("org.tiny")) {
                                 return;
                             }
-                        }catch(ClassNotFoundException e){
-
+                        } catch (ClassNotFoundException e) {
+                        } catch (ExceptionInInitializerError e) {
                         }
                         //找到继承对象
                         if (refClass != null && unitMockModel.getClazz().isAssignableFrom(refClass)) {
@@ -92,9 +92,9 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
                                 }
                             }
                             UnitParamData unitParamData = MetaDataUtil.getMetaParamData(returnType.getName());
-                            if(unitParamData != null) {
+                            if (unitParamData != null) {
                                 stringBuilder.append(")).thenReturn(" + unitParamData.getNewName() + ");");
-                            }else{
+                            } else {
                                 stringBuilder.append(")).thenReturn(Mockito.any());");
                             }
                             set.add(stringBuilder.toString());

@@ -24,11 +24,15 @@ public class UnitContentBuilder {
 
         List<UnitClassContent> unitClassBuilds = new ArrayList<>();
         for (UnitClassMethod unitClassMethod : unitClassMethodList) {
-            UnitClassContent unitClassBuild = new UnitClassContent();
-            unitClassBuild.setPackageName(unitClassMethod.getCtClass().getPackageName());
-            unitClassBuild.setClassName(unitClassMethod.getCtClass().getName());
-            unitClassBuild.setContent(UnitBuildFactory.makeContent(unitClassMethod, packageName));
-            unitClassBuilds.add(unitClassBuild);
+            try {
+                UnitClassContent unitClassBuild = new UnitClassContent();
+                unitClassBuild.setPackageName(unitClassMethod.getCtClass().getPackageName());
+                unitClassBuild.setClassName(unitClassMethod.getCtClass().getName());
+                unitClassBuild.setContent(UnitBuildFactory.makeContent(unitClassMethod, packageName));
+                unitClassBuilds.add(unitClassBuild);
+            } catch (Exception e) {
+                log.error("UnitContentBuilder.build failed on for loop, will ignore.", e);
+            }
         }
 
         return unitClassBuilds;

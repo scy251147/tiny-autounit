@@ -6,6 +6,9 @@ import org.tiny.autounit.core.chain.UnitClassScanner;
 import org.tiny.autounit.core.chain.UnitContentBuilder;
 import org.tiny.autounit.core.model.UnitClassContent;
 import org.tiny.autounit.core.model.UnitClassMethod;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +20,27 @@ import java.util.Set;
 public class UnitBootStrap {
 
     /**
+     * 无参构造
+     */
+    public UnitBootStrap() {
+
+    }
+
+    /**
+     * 带参构造
+     * packageScanSwitch = true: 将指定packageName中的类自动生成单测类
+     * packageScanSwitch = false: 不会将指定packageName中的类生成单测类， 默认此开关开启
+     *
+     * @param packageScanSwitch
+     */
+    public UnitBootStrap(Boolean packageScanSwitch) {
+        this.packageScanSwitch = packageScanSwitch;
+    }
+
+    //单测自动生成开关
+    private static Boolean packageScanSwitch = false;
+
+    /**
      * 可以在main中调用此类以便于生成测试用例
      */
     public static void start(String packageName) {
@@ -26,8 +50,13 @@ public class UnitBootStrap {
         Set<Class> classes = scanner.scanAnnotations(packageName);
 
         //2. 循环带有注解的类集合,找到需要生成的类方法集合
+        List<UnitClassMethod> unitClassMethods = new ArrayList<>();
         UnitClassAnalyzer analyzer = new UnitClassAnalyzer();
-        List<UnitClassMethod> unitClassMethods = analyzer.analysis(classes);
+        if (packageScanSwitch.equals(false)) {
+            unitClassMethods = analyzer.analysis(classes);
+        } else {
+            unitClassMethods = analyzer.batch(classes);
+        }
 
         //3. 生成单测内容
         UnitContentBuilder builder = new UnitContentBuilder();

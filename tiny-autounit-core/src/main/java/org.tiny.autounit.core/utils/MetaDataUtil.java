@@ -9,7 +9,7 @@ public class MetaDataUtil {
         if (className.equals("java.lang.String")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("String");
-            unitParamData.setNewName("'testData'");
+            unitParamData.setNewName("\"testData\"");
         } else if (className.equals("int")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("int");
@@ -86,6 +86,10 @@ public class MetaDataUtil {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("Set");
             unitParamData.setNewName("new HashSet()");
+        }else if (className.contains("Collection")) {
+            unitParamData = new UnitParamData();
+            unitParamData.setClassName("Collection");
+            unitParamData.setNewName("new ArrayList()");
         }else {
             String name = className.substring(className.lastIndexOf(".") + 1, className.length());
             unitParamData = new UnitParamData();
@@ -95,45 +99,4 @@ public class MetaDataUtil {
         }
         return unitParamData;
     }
-
-    /**
-     * 根据返回类型生成相应的返回值
-     * @param returnType
-     * @return
-     */
-    public static String setReturnDataByReturnType(CtClass returnType) {
-        if (returnType.getName().equals("int") || returnType.getName().equals("java.lang.Integer")) {
-            return "0";
-        }
-        else if (returnType.getName().equals("long") || returnType.getName().equals("java.lang.Long")) {
-            return "0l";
-        }
-        else if (returnType.getName().equals("float") || returnType.getName().equals("java.lang.Float")) {
-            return "0.0";
-        }
-        else if (returnType.getName().equals("double") || returnType.getName().equals("java.lang.Double")) {
-            return "0.0";
-        }
-        else if (returnType.getName().equals("byte") || returnType.getName().equals("java.lang.Byte")) {
-            return "0";
-        }
-        else if (returnType.getName().equals("short") || returnType.getName().equals("java.lang.Short")) {
-            return "0";
-        }
-        else if (returnType.getName().equals("boolean") || returnType.getName().equals("java.lang.Boolean")) {
-            return "true";
-        }
-        else if (returnType.getName().equals("char") || returnType.getName().equals("java.lang.Character")) {
-            return "a";
-        } else if (returnType.getName().contains(".")) {
-            String returnName = returnType.getName();
-            String name = returnName.substring(returnName.lastIndexOf(".") + 1, returnName.length());
-            return "new " + name + "()";
-        }else {
-            return "Mockito.any()";
-        }
-    }
-
-
-
 }

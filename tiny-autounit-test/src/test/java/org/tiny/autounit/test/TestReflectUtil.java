@@ -25,23 +25,4 @@ public class TestReflectUtil {
         assert priceEntity != null;
     }
 
-    @Test
-    public void testSetReturnDataByReturnType() throws NotFoundException {
-        ClassPool pool = new ClassPool(true);
-        pool.insertClassPath(new ClassClassPath(TestReflectUtil.class));
-        CtClass ctClass = pool.getCtClass("java.lang.Integer");
-        String s = MetaDataUtil.setReturnDataByReturnType(ctClass);
-        assert s!=null && s.equals("0");
-    }
-
-    @Test
-    public void testSetReturnDataByReturnTypeWithObject() throws NotFoundException {
-        ClassPool pool = new ClassPool(true);
-        pool.insertClassPath(new ClassClassPath(TestReflectUtil.class));
-        CtClass ctClass = pool.getCtClass("org.tiny.autounit.test.biz.OrderModel");
-        String s = MetaDataUtil.setReturnDataByReturnType(ctClass);
-        System.out.println(s);
-        assert s!=null ;
-    }
-
 }
