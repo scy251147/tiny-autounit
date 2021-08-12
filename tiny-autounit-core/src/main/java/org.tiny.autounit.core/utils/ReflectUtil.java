@@ -23,6 +23,7 @@ public class ReflectUtil {
     public static String setMockDataByClass(Class clazz, String classVariableName) {
         StringBuilder builder = new StringBuilder();
         UnitParamData metaParamData = MetaDataUtil.getMetaParamData(clazz.getName());
+        builder.append(RegexUtil.newLine()).append(RegexUtil.new4Tab()) .append(RegexUtil.new3Tab());
         builder.append(metaParamData.getClassName() + " " + classVariableName + " = " + metaParamData.getNewName() + ";").append(RegexUtil.newLine());
         if (metaParamData.isAnalysisFields()) {
             for (Field field : clazz.getDeclaredFields()) {

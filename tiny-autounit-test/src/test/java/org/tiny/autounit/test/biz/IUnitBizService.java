@@ -7,6 +7,6 @@ package org.tiny.autounit.test.biz;
  */
 public interface IUnitBizService {
 
-    String proecess(PriceEntity priceEntity);
+    String proecess(PriceEntity priceEntity, OrderModel orderModel);
 
 }

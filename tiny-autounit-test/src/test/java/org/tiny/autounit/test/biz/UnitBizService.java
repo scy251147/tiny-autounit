@@ -19,10 +19,9 @@ public class UnitBizService implements IUnitBizService {
     @Resource
     private ISubmitOrderService submitOrderService;
 
-    public String proecess(PriceEntity priceEntity) {
+    public String proecess(PriceEntity priceEntity, OrderModel orderModel) {
         priceCalcService.calc("sss");
         System.out.println("process work biz");
-        OrderModel orderModel = new OrderModel();
         TestModel testModel = new TestModel();
         submitOrderService.submit(orderModel, testModel);
         return "";
