@@ -73,7 +73,7 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
                             StringBuilder stringBuilder = new StringBuilder();
                             int paramCount = m.getMethod().getParameterTypes().length;
                             stringBuilder.append("when(" + unitMockModel.getClassName() + "." + m.getMethodName() + "(");
-                            for(int i=0;i<paramCount;i++){
+                            for (int i = 0; i < paramCount; i++) {
                                 stringBuilder.append("Mockito.any()");
                                 if (i < paramCount - 1) {
                                     stringBuilder.append(",");
