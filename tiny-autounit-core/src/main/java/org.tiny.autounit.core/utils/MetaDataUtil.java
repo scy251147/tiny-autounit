@@ -82,7 +82,11 @@ public class MetaDataUtil {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("Map");
             unitParamData.setNewName("new HashMap()");
-        } else {
+        } else if (className.contains("Set")) {
+            unitParamData = new UnitParamData();
+            unitParamData.setClassName("Set");
+            unitParamData.setNewName("new HashSet()");
+        }else {
             String name = className.substring(className.lastIndexOf(".") + 1, className.length());
             unitParamData = new UnitParamData();
             unitParamData.setClassName(name);
