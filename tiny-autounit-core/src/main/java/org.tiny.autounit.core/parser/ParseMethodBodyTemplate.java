@@ -68,9 +68,17 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
                 public void edit(MethodCall m) {
                     try {
                         String methodCallName = m.getClassName();
-                        Class refClass = Class.forName(methodCallName);
+                        Class refClass = null;
+                        try {
+                            refClass = Class.forName(methodCallName);
+                            if(!refClass.getName().startsWith("com.jd")){
+                                return;
+                            }
+                        }catch(ClassNotFoundException e){
+
+                        }
                         //找到继承对象
-                        if (unitMockModel.getClazz().isAssignableFrom(refClass)) {
+                        if (refClass != null && unitMockModel.getClazz().isAssignableFrom(refClass)) {
                             StringBuilder stringBuilder = new StringBuilder();
                             int paramCount = m.getMethod().getParameterTypes().length;
                             CtClass returnType = m.getMethod().getReturnType();
