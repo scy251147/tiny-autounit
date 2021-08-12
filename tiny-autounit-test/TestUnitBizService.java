@@ -24,8 +24,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.InjectMocks;
 import org.mockito.stubbing.Answer;
-import org.tiny.autounit.test.biz;
-import org.tiny.autounit.test.biz;
+import Lorg.tiny.autounit.test.biz.IPriceCalcService;
+import Lorg.tiny.autounit.test.biz.ISubmitOrderService;
 
 
 public class TestUnitBizService extends BaseTest{
@@ -46,8 +46,6 @@ public class TestUnitBizService extends BaseTest{
 
     @Test
     public void when_proecess_then_return_success(){
-       when(submitOrderService.submit(Mockito.any(),Mockito.any())).thenReturn(true);
-       when(priceCalcService.calc(Mockito.any())).thenReturn(0);
        
        PriceEntity unitBizService = new PriceEntity();
        unitBizService.setName("testData");
@@ -61,7 +59,6 @@ public class TestUnitBizService extends BaseTest{
 
     @Test
     public void when_proecess1_then_return_success(){
-       when(priceCalcService.calc(Mockito.any())).thenReturn(0);
        
        
 
@@ -70,7 +67,6 @@ public class TestUnitBizService extends BaseTest{
 
     @Test
     public void when_proecess2_then_return_success(){
-       when(priceCalcService.calc(Mockito.any())).thenReturn(0);
        
        
 
@@ -79,7 +75,6 @@ public class TestUnitBizService extends BaseTest{
 
     @Test
     public void when_proecess3_then_return_success(){
-       when(priceCalcService.calc(Mockito.any())).thenReturn(0);
        
        
 
@@ -88,7 +83,6 @@ public class TestUnitBizService extends BaseTest{
 
     @Test
     public void when_proecess5_then_return_success(){
-       when(priceCalcService.calc(Mockito.any())).thenReturn(0);
        
        
 

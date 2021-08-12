@@ -41,35 +41,33 @@ public class ReflectUtil {
         if (returnType.getName().equals("int") || returnType.getName().equals("java.lang.Integer")) {
             return "0";
         }
-        if (returnType.getName().equals("long") || returnType.getName().equals("java.lang.Long")) {
+        else if (returnType.getName().equals("long") || returnType.getName().equals("java.lang.Long")) {
             return "0l";
         }
-        if (returnType.getName().equals("float") || returnType.getName().equals("java.lang.Float")) {
+        else if (returnType.getName().equals("float") || returnType.getName().equals("java.lang.Float")) {
             return "0.0";
         }
-        if (returnType.getName().equals("double") || returnType.getName().equals("java.lang.Double")) {
+        else if (returnType.getName().equals("double") || returnType.getName().equals("java.lang.Double")) {
             return "0.0";
         }
-        if (returnType.getName().equals("byte") || returnType.getName().equals("java.lang.Byte")) {
+        else if (returnType.getName().equals("byte") || returnType.getName().equals("java.lang.Byte")) {
             return "0";
         }
-        if (returnType.getName().equals("short") || returnType.getName().equals("java.lang.Short")) {
+        else if (returnType.getName().equals("short") || returnType.getName().equals("java.lang.Short")) {
             return "0";
         }
-        if (returnType.getName().equals("boolean") || returnType.getName().equals("java.lang.Boolean")) {
+        else if (returnType.getName().equals("boolean") || returnType.getName().equals("java.lang.Boolean")) {
             return "true";
         }
-        if (returnType.getName().equals("char") || returnType.getName().equals("java.lang.Character")) {
+        else if (returnType.getName().equals("char") || returnType.getName().equals("java.lang.Character")) {
             return "a";
-        }
-
-        if (returnType.getName().contains(".")) {
+        } else if (returnType.getName().contains(".")) {
             String returnName = returnType.getName();
-            String name = returnName.substring(returnName.lastIndexOf("."), returnName.length());
+            String name = returnName.substring(returnName.lastIndexOf(".") + 1, returnName.length());
             return "new " + name + "()";
+        }else {
+            return "Mockito.any()";
         }
-
-        return "Mockito.any()";
     }
 
     /**

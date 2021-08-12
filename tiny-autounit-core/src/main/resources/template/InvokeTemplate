@@ -1,0 +1,3 @@
+$${request-entity}$$ $${request-entity-variable}$$ = new  $${request-entity}$$();
+$${request-entity-setters}$$
+$${response-entity}$$ $${response-entity-variable}$$ = $${service-impl-invoke}$$($${request-entity-variable}$$);
