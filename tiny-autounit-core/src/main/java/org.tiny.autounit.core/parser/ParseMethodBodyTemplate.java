@@ -70,7 +70,17 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
                         Class refClass = Class.forName(methodCallName);
                         //找到继承对象
                         if (unitMockModel.getClazz().isAssignableFrom(refClass)) {
-                            set.add("when(" + unitMockModel.getClassName() + "." + m.getMethodName() + "(Mockito.any())).thenReturn(Mockito.any());");
+                            StringBuilder stringBuilder = new StringBuilder();
+                            int paramCount = m.getMethod().getParameterTypes().length;
+                            stringBuilder.append("when(" + unitMockModel.getClassName() + "." + m.getMethodName() + "(");
+                            for(int i=0;i<paramCount;i++){
+                                stringBuilder.append("Mockito.any()");
+                                if (i < paramCount - 1) {
+                                    stringBuilder.append(",");
+                                }
+                            }
+                            stringBuilder.append(")).thenReturn(Mockito.any());");
+                            set.add(stringBuilder.toString());
                         }
                         //递归查找
                         else {

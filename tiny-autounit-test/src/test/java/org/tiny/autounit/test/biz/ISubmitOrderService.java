@@ -7,6 +7,6 @@ package org.tiny.autounit.test.biz;
  */
 public interface ISubmitOrderService {
 
-    boolean submit(OrderModel orderModel);
+    boolean submit(OrderModel orderModel, TestModel testModel);
 
 }
