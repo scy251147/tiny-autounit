@@ -52,7 +52,8 @@ public class UnitClassAnalyzer {
                     CtMethod[] declaredMethods = ctClass.getDeclaredMethods();
                     for (CtMethod declaredMethod : declaredMethods) {
                         Object unitExeclude = declaredMethod.getAnnotation(UnitExeclude.class);
-                        if (unitExeclude == null) {
+                        //不加@UnitExclude 且 public方法才生成单测类
+                        if (unitExeclude == null && declaredMethod.getModifiers() == 1) {
                             UnitMethodPair unitMethodPair = new UnitMethodPair();
                             unitMethodPair.setCtMethod(declaredMethod);
                             for (Method method : aClass.getDeclaredMethods()) {

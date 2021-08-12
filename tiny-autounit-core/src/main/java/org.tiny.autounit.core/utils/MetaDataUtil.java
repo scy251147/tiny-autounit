@@ -9,7 +9,7 @@ public class MetaDataUtil {
         if (className.equals("java.lang.String")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("String");
-            unitParamData.setNewName("");
+            unitParamData.setNewName("'testData'");
         }else if (className.equals("int")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("int");
