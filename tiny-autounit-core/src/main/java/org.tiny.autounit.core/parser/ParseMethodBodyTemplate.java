@@ -60,7 +60,7 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
      * @param ctMethod
      * @param deep
      */
-    public static Set<String> findMockedMethods(CtMethod ctMethod, Set<String> set, int deep, UnitMockModel unitMockModel) {
+    private static Set<String> findMockedMethods(CtMethod ctMethod, Set<String> set, int deep, UnitMockModel unitMockModel) {
         try {
             Integer MAX_DEEP = 10;
             ExprEditor exprEditor = new ExprEditor() {

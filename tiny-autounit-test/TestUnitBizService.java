@@ -24,7 +24,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.InjectMocks;
 import org.mockito.stubbing.Answer;
-import org.tiny.autounit.test.biz;import org.tiny.autounit.test.biz;
+import org.tiny.autounit.test.biz;
+import org.tiny.autounit.test.biz;
+
 
 public class TestUnitBizService extends BaseTest{
 
