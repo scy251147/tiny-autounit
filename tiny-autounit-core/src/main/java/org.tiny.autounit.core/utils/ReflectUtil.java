@@ -1,9 +1,11 @@
 package org.tiny.autounit.core.utils;
 
 import javassist.CtClass;
+import org.tiny.autounit.core.model.UnitParamData;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.util.Map;
 
 /**
  * @author shichaoyang
@@ -21,53 +23,19 @@ public class ReflectUtil {
     public static String setMockDataByClass(Class clazz, String classVariableName) {
         StringBuilder builder = new StringBuilder();
         String className = RegexUtil.getClassName(clazz.getName());
-        builder.append(className + " " + classVariableName + " = new " + className + "();")
-                .append(RegexUtil.newLine());
-        for (Field field : clazz.getDeclaredFields()) {
-            builder.append(RegexUtil.new4Tab())
-                    .append(RegexUtil.new3Tab())
-                    .append(classVariableName + formatSetField(field))
-                    .append(RegexUtil.newLine());
+        UnitParamData metaParamData = MetaDataUtil.getMetaParamData(className);
+        if (metaParamData!=null) {
+                builder.append(metaParamData.getClassName() + " " + classVariableName + " = " + metaParamData.getNewName() + ";").append(RegexUtil.newLine());
+        } else {
+            builder.append(className + " " + classVariableName + " = new " + className + "();").append(RegexUtil.newLine());
+            for (Field field : clazz.getDeclaredFields()) {
+                builder.append(RegexUtil.new4Tab())
+                        .append(RegexUtil.new3Tab())
+                        .append(classVariableName + formatSetField(field))
+                        .append(RegexUtil.newLine());
+            }
         }
         return builder.toString();
-    }
-
-    /**
-     * 根据返回类型生成相应的返回值
-     * @param returnType
-     * @return
-     */
-    public static String setReturnDataByReturnType(CtClass returnType) {
-        if (returnType.getName().equals("int") || returnType.getName().equals("java.lang.Integer")) {
-            return "0";
-        }
-        else if (returnType.getName().equals("long") || returnType.getName().equals("java.lang.Long")) {
-            return "0l";
-        }
-        else if (returnType.getName().equals("float") || returnType.getName().equals("java.lang.Float")) {
-            return "0.0";
-        }
-        else if (returnType.getName().equals("double") || returnType.getName().equals("java.lang.Double")) {
-            return "0.0";
-        }
-        else if (returnType.getName().equals("byte") || returnType.getName().equals("java.lang.Byte")) {
-            return "0";
-        }
-        else if (returnType.getName().equals("short") || returnType.getName().equals("java.lang.Short")) {
-            return "0";
-        }
-        else if (returnType.getName().equals("boolean") || returnType.getName().equals("java.lang.Boolean")) {
-            return "true";
-        }
-        else if (returnType.getName().equals("char") || returnType.getName().equals("java.lang.Character")) {
-            return "a";
-        } else if (returnType.getName().contains(".")) {
-            String returnName = returnType.getName();
-            String name = returnName.substring(returnName.lastIndexOf(".") + 1, returnName.length());
-            return "new " + name + "()";
-        }else {
-            return "Mockito.any()";
-        }
     }
 
     /**
@@ -113,7 +81,4 @@ public class ReflectUtil {
                 + field.getName().substring(1, field.getName().length())
                 + "(null);";
     }
-
-
-
 }

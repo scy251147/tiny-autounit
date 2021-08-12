@@ -28,7 +28,7 @@ public class UnitBizService implements IUnitBizService {
         return "";
     }
 
-    public void proecess1() {
+    public void proecess1(int flag) {
         priceCalcService.calc("sss");
         System.out.println("process work biz");
     }

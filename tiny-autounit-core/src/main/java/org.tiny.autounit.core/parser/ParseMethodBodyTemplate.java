@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.tiny.autounit.core.model.UnitMethodPair;
 import org.tiny.autounit.core.model.context.UnitMockContext;
 import org.tiny.autounit.core.model.context.UnitMockModel;
+import org.tiny.autounit.core.utils.MetaDataUtil;
 import org.tiny.autounit.core.utils.ReflectUtil;
 import org.tiny.autounit.core.utils.RegexUtil;
 
@@ -89,7 +90,7 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
                                     stringBuilder.append(",");
                                 }
                             }
-                            stringBuilder.append(")).thenReturn("+ReflectUtil.setReturnDataByReturnType(returnType)+");");
+                            stringBuilder.append(")).thenReturn("+ MetaDataUtil.setReturnDataByReturnType(returnType)+");");
                             set.add(stringBuilder.toString());
                         }
                         //递归查找
@@ -121,7 +122,7 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
         StringBuilder builder = new StringBuilder();
         builder.append(RegexUtil.new4Tab()).append(RegexUtil.new3Tab());
         for (Class<?> aClass : methodPair.getMethod().getParameterTypes()) {
-            String variableName = unitMockContext.getUnitInjectModel().getClassName();
+            String variableName = RegexUtil.getClassVariableName(aClass.getName())+"x";
             builder.append(ReflectUtil.setMockDataByClass(aClass, variableName));
         }
         return builder.toString();

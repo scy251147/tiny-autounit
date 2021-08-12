@@ -54,6 +54,14 @@ public class RegexUtil {
     }
 
     /**
+     * 根据类全路径名称获取路径名
+     *
+     * @param classFullName
+     */
+    public static String getClassFullPath(String classFullName) {
+        return classFullName.substring(1, classFullName.length());
+    }
+    /**
      * 新行
      * @return
      */

@@ -47,7 +47,7 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
                 String mockVariaName = declaredField.getFieldInfo().getName();
                 stringBuilder.append(RegexUtil.new4Tab()).append("private " + mockClassName + " " + mockVariaName).append(";");
                 //生成import内容
-                importBuilder.append("import " + declaredField.getFieldInfo().getDescriptor().replace("/", ".") + "\n");
+                importBuilder.append("import " + RegexUtil.getClassFullPath(declaredField.getFieldInfo().getDescriptor()).replace("/", ".") + "\n");
                 //添加到上下文
                 fillMocksInfo2Context(unitClassMethod.getClazz(), unitMockContext, RegexUtil.getClassName(mockVariaName));
             }

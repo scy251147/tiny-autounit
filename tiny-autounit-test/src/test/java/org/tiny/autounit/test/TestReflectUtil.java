@@ -7,6 +7,7 @@ import javassist.CtClass;
 import javassist.NotFoundException;
 import org.junit.jupiter.api.Test;
 import org.tiny.autounit.core.UnitBootStrap;
+import org.tiny.autounit.core.utils.MetaDataUtil;
 import org.tiny.autounit.core.utils.ReflectUtil;
 import org.tiny.autounit.test.biz.PriceEntity;
 
@@ -29,7 +30,7 @@ public class TestReflectUtil {
         ClassPool pool = new ClassPool(true);
         pool.insertClassPath(new ClassClassPath(TestReflectUtil.class));
         CtClass ctClass = pool.getCtClass("java.lang.Integer");
-        String s = ReflectUtil.setReturnDataByReturnType(ctClass);
+        String s = MetaDataUtil.setReturnDataByReturnType(ctClass);
         assert s!=null && s.equals("0");
     }
 
@@ -38,7 +39,7 @@ public class TestReflectUtil {
         ClassPool pool = new ClassPool(true);
         pool.insertClassPath(new ClassClassPath(TestReflectUtil.class));
         CtClass ctClass = pool.getCtClass("org.tiny.autounit.test.biz.OrderModel");
-        String s = ReflectUtil.setReturnDataByReturnType(ctClass);
+        String s = MetaDataUtil.setReturnDataByReturnType(ctClass);
         System.out.println(s);
         assert s!=null ;
     }
