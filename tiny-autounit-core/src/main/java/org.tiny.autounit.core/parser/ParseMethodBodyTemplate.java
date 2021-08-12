@@ -1,5 +1,6 @@
 package org.tiny.autounit.core.parser;
 
+import javassist.CtClass;
 import javassist.CtMethod;
 import javassist.expr.ExprEditor;
 import javassist.expr.MethodCall;
@@ -72,6 +73,7 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
                         if (unitMockModel.getClazz().isAssignableFrom(refClass)) {
                             StringBuilder stringBuilder = new StringBuilder();
                             int paramCount = m.getMethod().getParameterTypes().length;
+                            CtClass returnType = m.getMethod().getReturnType();
                             stringBuilder.append("when(" + unitMockModel.getClassName() + "." + m.getMethodName() + "(");
                             for (int i = 0; i < paramCount; i++) {
                                 stringBuilder.append("Mockito.any()");
@@ -79,7 +81,7 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
                                     stringBuilder.append(",");
                                 }
                             }
-                            stringBuilder.append(")).thenReturn(Mockito.any());");
+                            stringBuilder.append(")).thenReturn("+ReflectUtil.setReturnDataByReturnType(returnType)+");");
                             set.add(stringBuilder.toString());
                         }
                         //递归查找

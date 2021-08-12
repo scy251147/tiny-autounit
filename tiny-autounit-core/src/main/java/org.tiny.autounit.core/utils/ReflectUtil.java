@@ -1,5 +1,7 @@
 package org.tiny.autounit.core.utils;
 
+import javassist.CtClass;
+
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 
@@ -28,6 +30,46 @@ public class ReflectUtil {
                     .append(RegexUtil.newLine());
         }
         return builder.toString();
+    }
+
+    /**
+     * 根据返回类型生成相应的返回值
+     * @param returnType
+     * @return
+     */
+    public static String setReturnDataByReturnType(CtClass returnType) {
+        if (returnType.getName().equals("int") || returnType.getName().equals("java.lang.Integer")) {
+            return "0";
+        }
+        if (returnType.getName().equals("long") || returnType.getName().equals("java.lang.Long")) {
+            return "0l";
+        }
+        if (returnType.getName().equals("float") || returnType.getName().equals("java.lang.Float")) {
+            return "0.0";
+        }
+        if (returnType.getName().equals("double") || returnType.getName().equals("java.lang.Double")) {
+            return "0.0";
+        }
+        if (returnType.getName().equals("byte") || returnType.getName().equals("java.lang.Byte")) {
+            return "0";
+        }
+        if (returnType.getName().equals("short") || returnType.getName().equals("java.lang.Short")) {
+            return "0";
+        }
+        if (returnType.getName().equals("boolean") || returnType.getName().equals("java.lang.Boolean")) {
+            return "true";
+        }
+        if (returnType.getName().equals("char") || returnType.getName().equals("java.lang.Character")) {
+            return "a";
+        }
+
+        if (returnType.getName().contains(".")) {
+            String returnName = returnType.getName();
+            String name = returnName.substring(returnName.lastIndexOf("."), returnName.length());
+            return "new " + name + "()";
+        }
+
+        return "Mockito.any()";
     }
 
     /**
@@ -73,5 +115,7 @@ public class ReflectUtil {
                 + field.getName().substring(1, field.getName().length())
                 + "(null);";
     }
+
+
 
 }
