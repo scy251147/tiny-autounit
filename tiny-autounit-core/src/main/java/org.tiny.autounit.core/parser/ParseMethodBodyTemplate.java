@@ -73,7 +73,7 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
                         Class refClass = null;
                         try {
                             refClass = Class.forName(methodCallName);
-                            if(!refClass.getName().startsWith("com.jd")){
+                            if(!refClass.getName().startsWith("com.jd") && !refClass.getName().startsWith("org.tiny")){
                                 return;
                             }
                         }catch(ClassNotFoundException e){

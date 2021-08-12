@@ -10,7 +10,7 @@ public class MetaDataUtil {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("String");
             unitParamData.setNewName("'testData'");
-        }else if (className.equals("int")) {
+        } else if (className.equals("int")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("int");
             unitParamData.setNewName("0");
@@ -18,59 +18,59 @@ public class MetaDataUtil {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("Integer");
             unitParamData.setNewName("0");
-        } else if (className.equals("long")){
+        } else if (className.equals("long")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("long");
             unitParamData.setNewName("0l");
-        }  else if (className.equals("java.lang.Long")) {
+        } else if (className.equals("java.lang.Long")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("Long");
             unitParamData.setNewName("0l");
-        } else if (className.equals("float")){
+        } else if (className.equals("float")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("float");
             unitParamData.setNewName("0.0");
-        }  else if (className.equals("java.lang.Float")) {
+        } else if (className.equals("java.lang.Float")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("Float");
             unitParamData.setNewName("0.0");
-        } else if (className.equals("double")){
+        } else if (className.equals("double")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("double");
             unitParamData.setNewName("0.0");
-        }  else if (className.equals("java.lang.Double")) {
+        } else if (className.equals("java.lang.Double")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("Double");
             unitParamData.setNewName("0.0");
-        } else if (className.equals("byte")){
+        } else if (className.equals("byte")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("byte");
             unitParamData.setNewName("0");
-        }  else if (className.equals("java.lang.Byte")) {
+        } else if (className.equals("java.lang.Byte")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("Byte");
             unitParamData.setNewName("0");
-        } else if (className.equals("short")){
+        } else if (className.equals("short")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("short");
             unitParamData.setNewName("0");
-        }  else if (className.equals("java.lang.Short")) {
+        } else if (className.equals("java.lang.Short")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("Short");
             unitParamData.setNewName("0");
-        } else if (className.equals("boolean")){
+        } else if (className.equals("boolean")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("boolean");
             unitParamData.setNewName("true");
-        }  else if (className.equals("java.lang.Boolean")) {
+        } else if (className.equals("java.lang.Boolean")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("Boolean");
             unitParamData.setNewName("true");
-        }  else if (className.equals("char")){
+        } else if (className.equals("char")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("char");
             unitParamData.setNewName("a");
-        }  else if (className.equals("java.lang.Character")) {
+        } else if (className.equals("java.lang.Character")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("Character");
             unitParamData.setNewName("new Character('a')");
@@ -78,17 +78,17 @@ public class MetaDataUtil {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("List");
             unitParamData.setNewName("new ArrayList()");
-        }else if (className.contains("Map")) {
+        } else if (className.contains("Map")) {
             unitParamData = new UnitParamData();
             unitParamData.setClassName("Map");
             unitParamData.setNewName("new HashMap()");
+        } else {
+            String name = className.substring(className.lastIndexOf(".") + 1, className.length());
+            unitParamData = new UnitParamData();
+            unitParamData.setClassName(name);
+            unitParamData.setNewName("new " + name + "()");
+            unitParamData.setAnalysisFields(true);
         }
-//        else if(className.contains(".")) {
-//            String name = className.substring(className.lastIndexOf(".") + 1, className.length());
-//            unitParamData = new UnitParamData();
-//            unitParamData.setClassName(name);
-//            unitParamData.setNewName("new " + name + "()");
-//        }
         return unitParamData;
     }
 

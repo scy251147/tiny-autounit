@@ -110,6 +110,9 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
         if (String.class.isAssignableFrom(declaredField.getFieldInfo().getClass())) {
             return false;
         }
+        if(declaredField.getFieldInfo().getClass().getName().contains("org.slf4j.Logger")){
+            return false;
+        }
         return true;
     }
 }

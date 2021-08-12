@@ -9,4 +9,6 @@ public class UnitParamData {
 
     private String newName;
 
+    private boolean analysisFields = false;
+
 }
