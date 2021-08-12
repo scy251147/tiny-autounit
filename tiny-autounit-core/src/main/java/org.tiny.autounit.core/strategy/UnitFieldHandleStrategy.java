@@ -107,7 +107,9 @@ public class UnitFieldHandleStrategy implements IUnitBuildStrategy {
      * @return
      */
     private boolean checkAnnotation(CtField declaredField) {
-        //TODO 最好检查下spring @Resource和@Autowired标签，会更准确
+        if (String.class.isAssignableFrom(declaredField.getFieldInfo().getClass())) {
+            return false;
+        }
         return true;
     }
 }
