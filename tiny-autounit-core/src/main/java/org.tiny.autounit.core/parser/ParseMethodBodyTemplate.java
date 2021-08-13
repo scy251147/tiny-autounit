@@ -86,7 +86,13 @@ public class ParseMethodBodyTemplate implements IMethodBodyParse {
                             CtClass returnType = m.getMethod().getReturnType();
                             stringBuilder.append("when(" + unitMockModel.getClassName() + "." + m.getMethodName() + "(");
                             for (int i = 0; i < paramCount; i++) {
-                                stringBuilder.append("Mockito.any()");
+                                CtClass parameterType = m.getMethod().getParameterTypes()[i];
+                                UnitParamData unitParamData = MetaDataUtil.getMetaParamData(parameterType.getName());
+                                if(!unitParamData.isAnalysisFields()){
+                                    stringBuilder.append(unitParamData.getNewName());
+                                }else {
+                                    stringBuilder.append("Mockito.any()");
+                                }
                                 if (i < paramCount - 1) {
                                     stringBuilder.append(",");
                                 }

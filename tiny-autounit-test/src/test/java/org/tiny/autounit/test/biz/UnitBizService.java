@@ -23,7 +23,7 @@ public class UnitBizService implements IUnitBizService {
         priceCalcService.calc("sss");
         System.out.println("process work biz");
         TestModel testModel = new TestModel();
-        submitOrderService.submit(orderModel, testModel);
+        submitOrderService.submit(orderModel, testModel, "erp", 12);
         return "";
     }
 
